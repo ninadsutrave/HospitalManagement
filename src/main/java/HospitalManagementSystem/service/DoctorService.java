@@ -1,4 +1,4 @@
 package main.java.HospitalManagementSystem.service;
 
-public class Patient {
+public class DoctorService {
 }
