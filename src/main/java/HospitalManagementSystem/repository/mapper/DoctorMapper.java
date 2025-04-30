@@ -1,6 +1,6 @@
 package main.java.HospitalManagementSystem.repository.mapper;
 
-import main.java.HospitalManagementSystem.repository.model.DoctorModel;
+import main.java.HospitalManagementSystem.repository.dao.DoctorDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,20 +10,23 @@ import java.util.Optional;
 
 public class DoctorMapper {
 
-  public static Optional<DoctorModel> mapToDoctorDAO(ResultSet queryResult) {
+  public static Optional<DoctorDAO> mapToDoctor(ResultSet queryResult) {
 
     try {
 
-      DoctorModel doctor = DoctorModel.builder()
+      DoctorDAO doctor = DoctorDAO.builder()
         .id(queryResult.getInt("id"))
         .name(queryResult.getString("name"))
         .specialisation(queryResult.getString("specialisation"))
+        .yearsOfExperience(queryResult.getInt("years_of_experience"))
+        .shiftStart(queryResult.getString("shift_start"))
+        .shiftEnd(queryResult.getString("shift_end"))
         .build();
 
       return Optional.of(doctor);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor Model for query result: " + queryResult);
+      System.err.println("Error mapping Doctor DAO for query result: " + queryResult);
       e.printStackTrace();
     }
 
@@ -31,23 +34,26 @@ public class DoctorMapper {
 
   }
 
-  public static Optional<List<DoctorModel>> mapToDoctorListDAO(ResultSet queryResult) {
+  public static Optional<List<DoctorDAO>> mapToDoctorList(ResultSet queryResult) {
 
     try {
 
-      List<DoctorModel> doctorList = new ArrayList<>();
+      List<DoctorDAO> doctorList = new ArrayList<>();
       while(queryResult.next()) {
-        doctorList.add(DoctorModel.builder()
+        doctorList.add(DoctorDAO.builder()
           .id(queryResult.getInt("id"))
           .name(queryResult.getString("name"))
           .specialisation(queryResult.getString("specialisation"))
+          .yearsOfExperience(queryResult.getInt("years_of_experience"))
+          .shiftStart(queryResult.getString("shift_start"))
+          .shiftEnd(queryResult.getString("shift_end"))
           .build());
       }
 
       return Optional.of(doctorList);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor Model for query result: " + queryResult);
+      System.err.println("Error mapping Doctor DAO for query result: " + queryResult);
       e.printStackTrace();
     }
 

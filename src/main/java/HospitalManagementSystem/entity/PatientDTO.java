@@ -1,11 +1,11 @@
-package main.java.HospitalManagementSystem.repository.dao;
+package main.java.HospitalManagementSystem.entity;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
-public class PatientDAO {
+public class PatientDTO {
   private Integer id;
   private String name;
   private Integer age;
