@@ -14,7 +14,7 @@ public class DoctorMapper {
 
     try {
 
-      if (resultSet == null || resultSet.isClosed()) {
+      if (resultSet == null || resultSet.isClosed() || !resultSet.next()) {
         return Optional.empty();
       }
 
@@ -23,8 +23,11 @@ public class DoctorMapper {
         .name(resultSet.getString("name"))
         .specialisationId(resultSet.getInt("specialisation_id"))
         .yearsOfExperience(resultSet.getInt("years_of_experience"))
-        .shiftStart(resultSet.getString("shift_start"))
-        .shiftEnd(resultSet.getString("shift_end"))
+        .shiftStart(resultSet.getString("shift_start_time"))
+        .shiftEnd(resultSet.getString("shift_end_time"))
+        .isActive(resultSet.getInt("is_active"))
+        .createdAt(resultSet.getString("created_at"))
+        .recUpdatedAt(resultSet.getString("rec_updated_at"))
         .build();
 
       return Optional.of(doctor);
@@ -53,8 +56,11 @@ public class DoctorMapper {
           .name(resultSet.getString("name"))
           .specialisationId(resultSet.getInt("specialisation_id"))
           .yearsOfExperience(resultSet.getInt("years_of_experience"))
-          .shiftStart(resultSet.getString("shift_start"))
-          .shiftEnd(resultSet.getString("shift_end"))
+          .shiftStart(resultSet.getString("shift_start_time"))
+          .shiftEnd(resultSet.getString("shift_end_time"))
+          .isActive(resultSet.getInt("is_active"))
+          .createdAt(resultSet.getString("created_at"))
+          .recUpdatedAt(resultSet.getString("rec_updated_at"))
           .build());
       }
 

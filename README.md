@@ -1,7 +1,7 @@
 # Hospital Management System
 
 ### About
-A console run fully functional application solely made with the motivation of improving my proficiency in Java.
+A console run fully functional application, developed solely with the motivation of improving my proficiency in Java.
  Have used good coding practices and used the repository design pattern to make a clean and maintainable codebase.
 
 ### Tech Stack

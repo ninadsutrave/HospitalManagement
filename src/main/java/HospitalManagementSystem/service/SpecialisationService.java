@@ -11,6 +11,10 @@ public class SpecialisationService {
   SpecialisationDAOImpl specialisationDAOImpl;
   private final Scanner scanner = new Scanner(System.in);
 
+  public SpecialisationService() {
+    specialisationDAOImpl = new SpecialisationDAOImpl();
+  }
+
   public Integer getSpecialisationChoice() {
 
     List<SpecialisationDTO> specialisationList = specialisationDAOImpl
@@ -28,7 +32,7 @@ public class SpecialisationService {
     System.out.println("Enter a specialisation id: ");
     int specialisationChoice = scanner.nextInt();
 
-    if(specialisationChoice < 0 || specialisationChoice < specialisationList.size()) {
+    if(specialisationChoice <= 0 || specialisationChoice > specialisationList.size()) {
       return null;
     }
 

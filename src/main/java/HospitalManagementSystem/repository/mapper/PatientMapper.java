@@ -14,7 +14,7 @@ public class PatientMapper {
 
     try {
 
-      if (resultSet == null || resultSet.isClosed()) {
+      if (resultSet == null || resultSet.isClosed() || !resultSet.next()) {
         return Optional.empty();
       }
 
@@ -24,6 +24,9 @@ public class PatientMapper {
         .age(resultSet.getInt("age"))
         .gender(resultSet.getString("gender"))
         .phoneNumber(resultSet.getString("phone_number"))
+        .isActive(resultSet.getInt("is_active"))
+        .createdAt(resultSet.getString("created_at"))
+        .recUpdatedAt(resultSet.getString("rec_updated_at"))
         .build();
 
       return Optional.of(patient);
@@ -53,6 +56,9 @@ public class PatientMapper {
           .age(resultSet.getInt("age"))
           .gender(resultSet.getString("gender"))
           .phoneNumber(resultSet.getString("phone_number"))
+          .isActive(resultSet.getInt("is_active"))
+          .createdAt(resultSet.getString("created_at"))
+          .recUpdatedAt(resultSet.getString("rec_updated_at"))
           .build());
       }
 

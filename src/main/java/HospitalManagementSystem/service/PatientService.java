@@ -11,12 +11,16 @@ public class PatientService {
   PatientDAOImpl patientDAOImpl;
   private final Scanner scanner = new Scanner(System.in);
 
+  public PatientService() {
+    patientDAOImpl = new PatientDAOImpl();
+  }
+
   public void registerPatient() {
 
     System.out.println("ADD NEW PATIENT");
 
     System.out.print("Enter name of patient: ");
-    String name = scanner.next();
+    String name = scanner.nextLine();
     System.out.print("Enter age of patient: ");
     int age = scanner.nextInt();
     System.out.print("Enter gender of patient: ");
@@ -40,7 +44,7 @@ public class PatientService {
     System.out.println("VIEW PATIENT");
 
     System.out.print("Enter patient id: ");
-    int id = scanner.nextInt();
+    int id = scanner.nextInt(); scanner.nextLine();
 
     PatientDTO patient = patientDAOImpl
       .getPatientById(id)
@@ -60,7 +64,7 @@ public class PatientService {
     System.out.println("EDIT PATIENT");
 
     System.out.print("Enter patient id: ");
-    int id = scanner.nextInt();
+    int id = scanner.nextInt(); scanner.nextLine();
 
     PatientDTO patient = patientDAOImpl
       .getPatientById(id)
@@ -75,7 +79,7 @@ public class PatientService {
 
     System.out.println("Re-enter all details: ");
     System.out.print("Enter name of patient: ");
-    String name = scanner.next();
+    String name = scanner.nextLine();
     System.out.print("Enter age of patient: ");
     int age = scanner.nextInt();
     System.out.print("Enter gender of patient: ");
@@ -83,7 +87,7 @@ public class PatientService {
     System.out.print("Enter phone number: ");
     String phoneNumber = scanner.next();
     System.out.print("Enter isActive: ");
-    boolean isActive = scanner.nextBoolean();
+    Integer isActive = scanner.nextInt();
 
     PatientDTO updatedPatient = PatientDTO.builder()
       .id(patient.getId())
@@ -104,7 +108,7 @@ public class PatientService {
     System.out.println("REMOVE PATIENT");
 
     System.out.print("Enter patient id: ");
-    int id = scanner.nextInt();
+    int id = scanner.nextInt(); scanner.nextLine();
 
     patientDAOImpl.deactivatePatient(id);
 

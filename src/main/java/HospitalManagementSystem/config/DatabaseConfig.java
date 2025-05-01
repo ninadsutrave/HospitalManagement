@@ -14,7 +14,7 @@ public class DatabaseConfig {
   private String password;
 
   public DatabaseConfig() {
-    try (FileInputStream input = new FileInputStream("resources/config.properties")) {
+    try (FileInputStream input = new FileInputStream("src/main/resources/config.properties")) {
       Properties properties = new Properties();
       properties.load(input);
 

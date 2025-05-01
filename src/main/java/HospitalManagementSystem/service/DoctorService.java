@@ -12,7 +12,16 @@ public class DoctorService {
   DoctorDAOImpl doctorDAOImpl;
   private final Scanner scanner = new Scanner(System.in);
 
+  public DoctorService() {
+    doctorDAOImpl = new DoctorDAOImpl();
+  }
+
   public void viewDoctors(Integer specialisationId) {
+
+    if(Objects.isNull(specialisationId)) {
+      System.err.println("Invalid specialisation id!");
+      return;
+    }
 
     System.out.println("VIEW DOCTORS");
 
@@ -25,11 +34,11 @@ public class DoctorService {
     }
 
     System.out.println("+------+--------------------+--------------------+----------------------+");
-    System.out.println("|  Id  | Name               | Specialisation     | Years of Experience  |");
+    System.out.println("|  Id  | Name               | Specialisation Id  | Years of Experience  |");
     System.out.println("+------+--------------------+--------------------+----------------------+");
 
     for(DoctorDTO doctor : doctors) {
-      System.out.printf("|%-6s|%-20s|%-20s|\n", doctor.getId(), doctor.getName(), doctor.getSpecialisationId(), doctor.getYearsOfExperience());
+      System.out.printf("|2s-%-4s|2s-%-18s|2s-%-18s|2s-%-20s|\n", doctor.getId(), doctor.getName(), doctor.getYearsOfExperience());
       System.out.println("+------+--------------------+--------------------+----------------------+");
     }
 
@@ -40,18 +49,21 @@ public class DoctorService {
     Scanner scanner = new Scanner(System.in);
     System.out.println("ADD NEW DOCTOR");
 
-    System.out.print("Enter name of doctor: ");
-    String name = scanner.next();
-    System.out.print("Enter specialisation id of doctor: ");
+    System.out.print("Enter name: ");
+    String name = scanner.nextLine();
+    System.out.print("Enter specialisation id: ");
     int specialisationId = scanner.nextInt();
-    System.out.print("Enter start shift time of doctor: ");
+    System.out.print("Enter years of experience: ");
+    int yearsOfExperience = scanner.nextInt();
+    System.out.print("Enter shift start time: ");
     String shiftStart = scanner.next();
-    System.out.print("Enter end shift time of doctor: ");
+    System.out.print("Enter shift end time: ");
     String shiftEnd = scanner.next();
 
     DoctorDTO doctor = DoctorDTO.builder()
       .name(name)
       .specialisationId(specialisationId)
+      .yearsOfExperience(yearsOfExperience)
       .shiftStart(shiftStart)
       .shiftEnd(shiftEnd)
       .build();
@@ -100,13 +112,13 @@ public class DoctorService {
 
     System.out.println("Re-enter all details: ");
     System.out.print("Enter name of doctor: ");
-    String name = scanner.next();
+    String name = scanner.nextLine();
     System.out.print("Enter specialisation id: ");
     int specialisationId = scanner.nextInt();
     System.out.print("Enter years of experience: ");
     int yearsOfExperience = scanner.nextInt();
     System.out.print("Enter isActive: ");
-    boolean isActive = scanner.nextBoolean();
+    Integer isActive = scanner.nextInt();
     System.out.print("Enter shift start time: ");
     String shiftStart = scanner.next();
     System.out.print("Enter shift end time: ");

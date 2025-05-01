@@ -12,7 +12,7 @@ public class DoctorDTO {
   private Integer yearsOfExperience;
   private String shiftStart;
   private String shiftEnd;
-  private Boolean isActive;
+  private Integer isActive;
   private String createdAt;
   private String recUpdatedAt;
 

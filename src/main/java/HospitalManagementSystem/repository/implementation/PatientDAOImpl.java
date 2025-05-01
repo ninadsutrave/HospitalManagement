@@ -100,7 +100,7 @@ public class PatientDAOImpl {
       preparedStatement.setInt(2, updatedPatient.getAge());
       preparedStatement.setString(3, updatedPatient.getGender());
       preparedStatement.setString(4, updatedPatient.getPhoneNumber());
-      preparedStatement.setBoolean(5, updatedPatient.getIsActive());
+      preparedStatement.setInt(5, updatedPatient.getIsActive());
       preparedStatement.setInt(6, updatedPatient.getId());
 
       int updatedRows = preparedStatement.executeUpdate();

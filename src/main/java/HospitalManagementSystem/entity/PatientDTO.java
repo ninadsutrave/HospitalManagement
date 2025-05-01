@@ -11,7 +11,7 @@ public class PatientDTO {
   private Integer age;
   private String gender;
   private String phoneNumber;
-  private Boolean isActive;
+  private Integer isActive;
   private String createdAt;
   private String recUpdatedAt;
 
