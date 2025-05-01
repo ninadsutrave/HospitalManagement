@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.service;
 
 import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
-import main.java.HospitalManagementSystem.repository.implementation.SpecialisationDAOImpl;
+import main.java.HospitalManagementSystem.dao.implementation.SpecialisationDAOImpl;
 
 import java.util.List;
 import java.util.Scanner;

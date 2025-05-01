@@ -1,4 +1,4 @@
-package main.java.HospitalManagementSystem.repository.mapper;
+package main.java.HospitalManagementSystem.dao.mapper;
 
 import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
 

@@ -1,15 +1,15 @@
 # Hospital Management System
 
-### About
+### 📌 About
 A console run fully functional application, developed solely with the motivation of improving my proficiency in Java.
- Have used good coding practices and used the repository design pattern to make a clean and maintainable codebase.
+ Have used good coding practices and used the DAO design pattern to make a clean and maintainable codebase.
 
-### Tech Stack
+### 📚 Tech Stack
 
 - Java
 - MySQL
 
-### Key Features
+### ✨ Key Features
 
 Patient view
 - Register as a patient
@@ -21,13 +21,13 @@ Admin View
 - Add, view, edit or delete patient information to the database
 - Add, view, edit or delete doctor information to the database
 
-### ER Diagram
+### 📝 ER Diagram
 
 ![ER Diagram](./assets/ERDiagram.png)
 
-### Previews
+### 👁 Previews
 
-### Possible additions
+### ➕ Possible additions
 
 - Add password protection to user/admin roles
 - Add GUI using Java Swing or JavaFX

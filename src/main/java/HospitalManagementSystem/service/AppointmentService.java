@@ -1,6 +1,6 @@
 package main.java.HospitalManagementSystem.service;
 
-import main.java.HospitalManagementSystem.repository.implementation.AppointmentDAOImpl;
+import main.java.HospitalManagementSystem.dao.implementation.AppointmentDAOImpl;
 
 import java.util.Scanner;
 

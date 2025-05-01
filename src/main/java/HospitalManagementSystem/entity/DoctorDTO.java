@@ -23,7 +23,7 @@ public class DoctorDTO {
     System.out.println("  Years of Exp.     : " + yearsOfExperience);
     System.out.println("  Shift Start       : " + shiftStart);
     System.out.println("  Shift End         : " + shiftEnd);
-    System.out.println("  Active            : " + isActive);
+    System.out.println("  IsActive          : " + isActive);
     System.out.println("  CreatedAt         : " + createdAt);
     System.out.println("  RecUpdatedAt      : " + recUpdatedAt);
   }

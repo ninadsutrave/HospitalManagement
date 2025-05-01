@@ -1,4 +1,4 @@
-package main.java.HospitalManagementSystem.repository.query;
+package main.java.HospitalManagementSystem.dao.query;
 
 public class AppointmentQuery {
   public static final String INSERT_APPOINTMENT = "INSERT into appointment (patient_id, doctor_id, appointment_date) VALUES (?, ?, ?)";

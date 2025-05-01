@@ -1,8 +1,8 @@
-package main.java.HospitalManagementSystem.repository.implementation;
+package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
-import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static main.java.HospitalManagementSystem.repository.mapper.SpecialisationMapper.mapToSpecialisationList;
-import static main.java.HospitalManagementSystem.repository.query.SpecialisationQuery.GET_SPECIALISATION_LIST;
+import static main.java.HospitalManagementSystem.dao.mapper.SpecialisationMapper.mapToSpecialisationList;
+import static main.java.HospitalManagementSystem.dao.query.SpecialisationQuery.GET_SPECIALISATION_LIST;
 
 public class SpecialisationDAOImpl {
 

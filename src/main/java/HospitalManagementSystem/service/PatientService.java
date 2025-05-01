@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.service;
 
 import main.java.HospitalManagementSystem.entity.PatientDTO;
-import main.java.HospitalManagementSystem.repository.implementation.PatientDAOImpl;
+import main.java.HospitalManagementSystem.dao.implementation.PatientDAOImpl;
 
 import java.util.Objects;
 import java.util.Scanner;

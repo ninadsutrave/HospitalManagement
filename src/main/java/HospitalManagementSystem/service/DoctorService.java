@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.service;
 
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
-import main.java.HospitalManagementSystem.repository.implementation.DoctorDAOImpl;
+import main.java.HospitalManagementSystem.dao.implementation.DoctorDAOImpl;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class DoctorService {
     System.out.println("+------+--------------------+--------------------+----------------------+");
 
     for(DoctorDTO doctor : doctors) {
-      System.out.printf("|2s-%-4s|2s-%-18s|2s-%-18s|2s-%-20s|\n", doctor.getId(), doctor.getName(), doctor.getYearsOfExperience());
+      System.out.printf("|  %-4s|  %-18s|  %-18s|  %-20s|\n", doctor.getId(), doctor.getName(), doctor.getSpecialisationId(), doctor.getYearsOfExperience());
       System.out.println("+------+--------------------+--------------------+----------------------+");
     }
 
@@ -97,7 +97,7 @@ public class DoctorService {
     System.out.println("EDIT DOCTOR");
 
     System.out.print("Enter doctor id: ");
-    int id = scanner.nextInt();
+    int id = scanner.nextInt(); scanner.nextLine();
 
     DoctorDTO doctor = doctorDAOImpl
       .getDoctorById(id)
@@ -117,21 +117,21 @@ public class DoctorService {
     int specialisationId = scanner.nextInt();
     System.out.print("Enter years of experience: ");
     int yearsOfExperience = scanner.nextInt();
-    System.out.print("Enter isActive: ");
-    Integer isActive = scanner.nextInt();
     System.out.print("Enter shift start time: ");
     String shiftStart = scanner.next();
     System.out.print("Enter shift end time: ");
     String shiftEnd = scanner.next();
+    System.out.print("Enter isActive: ");
+    Integer isActive = scanner.nextInt();
 
     DoctorDTO updatedDoctor = DoctorDTO.builder()
       .id(doctor.getId())
       .name(name)
       .specialisationId(specialisationId)
       .yearsOfExperience(yearsOfExperience)
-      .isActive(isActive)
       .shiftStart(shiftStart)
       .shiftEnd(shiftEnd)
+      .isActive(isActive)
       .build();
 
     doctorDAOImpl.updateDoctor(updatedDoctor);

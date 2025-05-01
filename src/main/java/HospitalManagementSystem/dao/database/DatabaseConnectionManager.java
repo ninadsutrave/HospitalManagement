@@ -1,4 +1,4 @@
-package main.java.HospitalManagementSystem.repository.database;
+package main.java.HospitalManagementSystem.dao.database;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
 

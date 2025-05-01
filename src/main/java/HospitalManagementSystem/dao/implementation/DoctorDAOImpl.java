@@ -1,8 +1,8 @@
-package main.java.HospitalManagementSystem.repository.implementation;
+package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
-import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static main.java.HospitalManagementSystem.repository.mapper.DoctorMapper.mapToDoctor;
-import static main.java.HospitalManagementSystem.repository.mapper.DoctorMapper.mapToDoctorList;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.INSERT_DOCTOR;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_DOCTOR_BY_ID;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_ALL_DOCTORS;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_DOCTOR_BY_SPECIALISATION;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.UPDATE_DOCTOR;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.DEACTIVATE_DOCTOR;
+import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDoctor;
+import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDoctorList;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.INSERT_DOCTOR;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_ID;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_ALL_DOCTORS;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_SPECIALISATION;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.UPDATE_DOCTOR;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.DEACTIVATE_DOCTOR;
 
 public class DoctorDAOImpl {
 
@@ -128,7 +128,8 @@ public class DoctorDAOImpl {
       preparedStatement.setInt(3, updatedDoctor.getYearsOfExperience());
       preparedStatement.setString(4, updatedDoctor.getShiftStart());
       preparedStatement.setString(5, updatedDoctor.getShiftEnd());
-      preparedStatement.setInt(6, updatedDoctor.getId());
+      preparedStatement.setInt(6, updatedDoctor.getIsActive());
+      preparedStatement.setInt(7, updatedDoctor.getId());
 
       int updatedRows = preparedStatement.executeUpdate();
 

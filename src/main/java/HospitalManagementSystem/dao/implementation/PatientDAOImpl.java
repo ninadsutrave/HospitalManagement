@@ -1,8 +1,8 @@
-package main.java.HospitalManagementSystem.repository.implementation;
+package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.entity.PatientDTO;
-import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static main.java.HospitalManagementSystem.repository.mapper.PatientMapper.mapToPatient;
-import static main.java.HospitalManagementSystem.repository.mapper.PatientMapper.mapToPatientList;
-import static main.java.HospitalManagementSystem.repository.query.PatientQuery.INSERT_PATIENT;
-import static main.java.HospitalManagementSystem.repository.query.PatientQuery.GET_PATIENT_BY_ID;
-import static main.java.HospitalManagementSystem.repository.query.PatientQuery.GET_ALL_PATIENTS;
-import static main.java.HospitalManagementSystem.repository.query.PatientQuery.UPDATE_PATIENT;
-import static main.java.HospitalManagementSystem.repository.query.PatientQuery.DEACTIVATE_PATIENT;
+import static main.java.HospitalManagementSystem.dao.mapper.PatientMapper.mapToPatient;
+import static main.java.HospitalManagementSystem.dao.mapper.PatientMapper.mapToPatientList;
+import static main.java.HospitalManagementSystem.dao.query.PatientQuery.INSERT_PATIENT;
+import static main.java.HospitalManagementSystem.dao.query.PatientQuery.GET_PATIENT_BY_ID;
+import static main.java.HospitalManagementSystem.dao.query.PatientQuery.GET_ALL_PATIENTS;
+import static main.java.HospitalManagementSystem.dao.query.PatientQuery.UPDATE_PATIENT;
+import static main.java.HospitalManagementSystem.dao.query.PatientQuery.DEACTIVATE_PATIENT;
 
 public class PatientDAOImpl {
 

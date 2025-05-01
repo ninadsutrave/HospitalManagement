@@ -1,4 +1,4 @@
-package main.java.HospitalManagementSystem.repository.query;
+package main.java.HospitalManagementSystem.dao.query;
 
 public class PatientQuery {
   public static final String INSERT_PATIENT = "INSERT INTO patient (name, age, gender, phone_number, is_active) VALUES (?, ?, ?, ?, 1)";

@@ -1,8 +1,8 @@
-package main.java.HospitalManagementSystem.repository.implementation;
+package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
-import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +11,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static main.java.HospitalManagementSystem.repository.mapper.AppointmentMapper.mapToAppointmentList;
-import static main.java.HospitalManagementSystem.repository.query.AppointmentQuery.INSERT_APPOINTMENT;
-import static main.java.HospitalManagementSystem.repository.query.AppointmentQuery.GET_PATIENT_APPOINTMENTS_FOR_DATE;
-import static main.java.HospitalManagementSystem.repository.query.AppointmentQuery.GET_DOCTOR_APPOINTMENTS_FOR_DATE;
-import static main.java.HospitalManagementSystem.repository.query.AppointmentQuery.UPDATE_APPOINTMENT;
-import static main.java.HospitalManagementSystem.repository.query.AppointmentQuery.DELETE_APPOINTMENT;
+import static main.java.HospitalManagementSystem.dao.mapper.AppointmentMapper.mapToAppointmentList;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.INSERT_APPOINTMENT;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.GET_PATIENT_APPOINTMENTS_FOR_DATE;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.GET_DOCTOR_APPOINTMENTS_FOR_DATE;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.UPDATE_APPOINTMENT;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.DELETE_APPOINTMENT;
 
 public class AppointmentDAOImpl {
 
