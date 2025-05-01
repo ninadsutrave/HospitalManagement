@@ -9,7 +9,7 @@ public class MenuService {
   SpecialisationService specialisationService;
   AppointmentService appointmentService;
 
-  public void welcomeScreen() {
+  public void showWelcomeScreen() {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -28,6 +28,7 @@ public class MenuService {
                 break;
         case 2: showPatientMenu();
                 break;
+        case 3: return;
         default: System.err.println("Enter a correct choice!");
       }
 
@@ -55,14 +56,23 @@ public class MenuService {
       int choice = scanner.nextInt();
 
       switch(choice) {
-        case 1: break;
-        case 2: break;
-        case 3: break;
-        case 4: break;
-        case 5: break;
-        case 6: break;
-        case 7: break;
-        case 8: break;
+        case 1: patientService.registerPatient();
+                break;
+        case 2: patientService.viewPatient();
+                break;
+        case 3: patientService.editPatient();
+                break;
+        case 4: patientService.removePatient();
+                break;
+        case 5: doctorService.addDoctor();
+                break;
+        case 6: doctorService.viewDoctorById();
+                break;
+        case 7: doctorService.editDoctor();
+                break;
+        case 8: doctorService.removeDoctor();
+                break;
+        case 9: return;
         default: System.err.println("Enter a correct choice!");
       }
 
@@ -79,20 +89,24 @@ public class MenuService {
 
       System.out.println("1. Register");
       System.out.println("2. View Doctors");
-      System.out.println("2. Book Appointment");
-      System.out.println("3. Reschedule Appointment");
-      System.out.println("4. Exit");
+      System.out.println("3. Book Appointment");
+      System.out.println("4. Reschedule Appointment");
+      System.out.println("5. Cancel Appointment");
+      System.out.println("6. Exit");
 
       int choice = scanner.nextInt();
 
       switch(choice) {
         case 1: patientService.registerPatient();
                 break;
-        case 2: specialisationService.viewSpecialisationList();
-                doctorService.viewDoctors();
+        case 2: int specialisationId = specialisationService.getSpecialisationChoice();
+                doctorService.viewDoctors(specialisationId);
                 break;
         case 3: break;
         case 4: break;
+        case 5: appointmentService.cancelAppointment();
+                break;
+        case 6: return;
         default: System.err.println("Enter a correct choice!");
       }
 

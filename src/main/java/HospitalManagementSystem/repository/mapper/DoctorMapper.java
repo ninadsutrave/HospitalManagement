@@ -1,6 +1,6 @@
 package main.java.HospitalManagementSystem.repository.mapper;
 
-import main.java.HospitalManagementSystem.repository.dao.DoctorDAO;
+import main.java.HospitalManagementSystem.entity.DoctorDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,23 +10,27 @@ import java.util.Optional;
 
 public class DoctorMapper {
 
-  public static Optional<DoctorDAO> mapToDoctor(ResultSet queryResult) {
+  public static Optional<DoctorDTO> mapToDoctor(ResultSet resultSet) {
 
     try {
 
-      DoctorDAO doctor = DoctorDAO.builder()
-        .id(queryResult.getInt("id"))
-        .name(queryResult.getString("name"))
-        .specialisation(queryResult.getString("specialisation"))
-        .yearsOfExperience(queryResult.getInt("years_of_experience"))
-        .shiftStart(queryResult.getString("shift_start"))
-        .shiftEnd(queryResult.getString("shift_end"))
+      if (resultSet == null || resultSet.isClosed()) {
+        return Optional.empty();
+      }
+
+      DoctorDTO doctor = DoctorDTO.builder()
+        .id(resultSet.getInt("id"))
+        .name(resultSet.getString("name"))
+        .specialisationId(resultSet.getInt("specialisation_id"))
+        .yearsOfExperience(resultSet.getInt("years_of_experience"))
+        .shiftStart(resultSet.getString("shift_start"))
+        .shiftEnd(resultSet.getString("shift_end"))
         .build();
 
       return Optional.of(doctor);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor DAO for query result: " + queryResult);
+      System.err.println("Error mapping Doctor DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 
@@ -34,30 +38,32 @@ public class DoctorMapper {
 
   }
 
-  public static Optional<List<DoctorDAO>> mapToDoctorList(ResultSet queryResult) {
+  public static Optional<List<DoctorDTO>> mapToDoctorList(ResultSet resultSet) {
 
+    List<DoctorDTO> doctorList = new ArrayList<>();
     try {
 
-      List<DoctorDAO> doctorList = new ArrayList<>();
-      while(queryResult.next()) {
-        doctorList.add(DoctorDAO.builder()
-          .id(queryResult.getInt("id"))
-          .name(queryResult.getString("name"))
-          .specialisation(queryResult.getString("specialisation"))
-          .yearsOfExperience(queryResult.getInt("years_of_experience"))
-          .shiftStart(queryResult.getString("shift_start"))
-          .shiftEnd(queryResult.getString("shift_end"))
+      if (resultSet == null || resultSet.isClosed()) {
+        return Optional.empty();
+      }
+
+      while(resultSet.next()) {
+        doctorList.add(DoctorDTO.builder()
+          .id(resultSet.getInt("id"))
+          .name(resultSet.getString("name"))
+          .specialisationId(resultSet.getInt("specialisation_id"))
+          .yearsOfExperience(resultSet.getInt("years_of_experience"))
+          .shiftStart(resultSet.getString("shift_start"))
+          .shiftEnd(resultSet.getString("shift_end"))
           .build());
       }
 
-      return Optional.of(doctorList);
-
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor DAO for query result: " + queryResult);
+      System.err.println("Error mapping Doctor DAO for query result: " + resultSet);
       e.printStackTrace();
     }
 
-    return Optional.empty();
+    return doctorList.isEmpty() ? Optional.empty() : Optional.of(doctorList);
 
   }
 

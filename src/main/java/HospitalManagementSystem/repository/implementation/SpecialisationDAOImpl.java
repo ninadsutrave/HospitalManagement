@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.repository.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
-import main.java.HospitalManagementSystem.repository.dao.SpecialisationDAO;
+import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
 import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -19,17 +19,13 @@ public class SpecialisationDAOImpl {
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
-  public static Optional<List<SpecialisationDAO>> getSpecialisationList() {
+  public Optional<List<SpecialisationDTO>> getSpecialisationList() {
 
-    try {
+    try (Connection connection = connectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(GET_SPECIALISATION_LIST)) {
 
-      Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_SPECIALISATION_LIST);
-
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      if(resultSet.next()) {
-        mapToSpecialisationList(resultSet);
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
+        return mapToSpecialisationList(resultSet);
       }
 
     } catch(SQLException e) {

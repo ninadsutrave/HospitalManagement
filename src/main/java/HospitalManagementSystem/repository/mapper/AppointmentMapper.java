@@ -1,6 +1,6 @@
 package main.java.HospitalManagementSystem.repository.mapper;
 
-import main.java.HospitalManagementSystem.repository.dao.AppointmentDAO;
+import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,34 +10,34 @@ import java.util.Optional;
 
 public class AppointmentMapper {
 
-  public static Optional<List<AppointmentDAO>> mapToAppointmentList(ResultSet queryResult) {
+  public static Optional<List<AppointmentDTO>> mapToAppointmentList(ResultSet resultSet) {
 
+    List<AppointmentDTO> appointmentList = new ArrayList<>();
     try {
 
-      List<AppointmentDAO> appointmentList = new ArrayList<>();
-      while(queryResult.next()) {
-        AppointmentDAO appointment = AppointmentDAO.builder()
-          .id(queryResult.getInt("id"))
-          .doctorId(queryResult.getInt("doctor_id"))
-          .patientId(queryResult.getInt("patient_id"))
-          .date(queryResult.getString("date"))
-          .startTime(queryResult.getString("start_time"))
-          .endTime(queryResult.getString("end_time"))
-          .notes(queryResult.getString("notes"))
+      if (resultSet == null || resultSet.isClosed()) {
+        return Optional.empty();
+      }
+
+      while(resultSet.next()) {
+        AppointmentDTO appointment = AppointmentDTO.builder()
+          .id(resultSet.getInt("id"))
+          .doctorId(resultSet.getInt("doctor_id"))
+          .patientId(resultSet.getInt("patient_id"))
+          .date(resultSet.getString("date"))
+          .startTime(resultSet.getString("start_time"))
+          .endTime(resultSet.getString("end_time"))
+          .notes(resultSet.getString("notes"))
           .build();
 
         appointmentList.add(appointment);
       }
-
-      return Optional.of(appointmentList);
-
     } catch (SQLException e) {
-      System.err.println("Error mapping Appointment DAO for query result: " + queryResult);
+      System.err.println("Error mapping Appointment DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 
-    return Optional.empty();
-
+    return appointmentList.isEmpty() ? Optional.empty() : Optional.of(appointmentList);
   }
 
 }

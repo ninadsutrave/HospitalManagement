@@ -1,6 +1,6 @@
 package main.java.HospitalManagementSystem.repository.mapper;
 
-import main.java.HospitalManagementSystem.repository.dao.PatientDAO;
+import main.java.HospitalManagementSystem.entity.PatientDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,22 +10,26 @@ import java.util.Optional;
 
 public class PatientMapper {
 
-  public static Optional<PatientDAO> mapToPatient(ResultSet queryResult) {
+  public static Optional<PatientDTO> mapToPatient(ResultSet resultSet) {
 
     try {
 
-      PatientDAO patient = PatientDAO.builder()
-        .id(queryResult.getInt("id"))
-        .name(queryResult.getString("name"))
-        .age(queryResult.getInt("age"))
-        .gender(queryResult.getString("gender"))
-        .phoneNumber(queryResult.getString("phone_number"))
+      if (resultSet == null || resultSet.isClosed()) {
+        return Optional.empty();
+      }
+
+      PatientDTO patient = PatientDTO.builder()
+        .id(resultSet.getInt("id"))
+        .name(resultSet.getString("name"))
+        .age(resultSet.getInt("age"))
+        .gender(resultSet.getString("gender"))
+        .phoneNumber(resultSet.getString("phone_number"))
         .build();
 
       return Optional.of(patient);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Patient DAO for query result: " + queryResult);
+      System.err.println("Error mapping Patient DAO for query result: " + resultSet);
       e.printStackTrace();
     }
 
@@ -33,29 +37,33 @@ public class PatientMapper {
 
   }
 
-  public static Optional<List<PatientDAO>> mapToPatientList(ResultSet queryResult) {
+  public static Optional<List<PatientDTO>> mapToPatientList(ResultSet resultSet) {
 
+    List<PatientDTO> patientList = new ArrayList<>();
     try {
 
-      List<PatientDAO> patientList = new ArrayList<>();
-      while(queryResult.next()) {
-        patientList.add(PatientDAO.builder()
-          .id(queryResult.getInt("id"))
-          .name(queryResult.getString("name"))
-          .age(queryResult.getInt("age"))
-          .gender(queryResult.getString("gender"))
-          .phoneNumber(queryResult.getString("phone_number"))
+      if (resultSet == null || resultSet.isClosed()) {
+        return Optional.empty();
+      }
+
+      while(resultSet.next()) {
+        patientList.add(PatientDTO.builder()
+          .id(resultSet.getInt("id"))
+          .name(resultSet.getString("name"))
+          .age(resultSet.getInt("age"))
+          .gender(resultSet.getString("gender"))
+          .phoneNumber(resultSet.getString("phone_number"))
           .build());
       }
 
       return Optional.of(patientList);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Patient DAO for query result: " + queryResult);
+      System.err.println("Error mapping Patient DAO for query result: " + resultSet);
       e.printStackTrace();
     }
 
-    return Optional.empty();
+    return patientList.isEmpty() ? Optional.empty() : Optional.of(patientList);
 
   }
 

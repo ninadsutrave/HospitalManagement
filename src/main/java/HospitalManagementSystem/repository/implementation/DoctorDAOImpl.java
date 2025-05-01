@@ -1,6 +1,7 @@
 package main.java.HospitalManagementSystem.repository.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
+import main.java.HospitalManagementSystem.entity.DoctorDTO;
 import main.java.HospitalManagementSystem.repository.database.DatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -8,24 +9,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-import static main.java.HospitalManagementSystem.repository.mapper.DoctorMapper.*;
-import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.*;
+import static main.java.HospitalManagementSystem.repository.mapper.DoctorMapper.mapToDoctor;
+import static main.java.HospitalManagementSystem.repository.mapper.DoctorMapper.mapToDoctorList;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.INSERT_DOCTOR;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_DOCTOR_BY_ID;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_ALL_DOCTORS;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.GET_DOCTOR_BY_SPECIALISATION;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.UPDATE_DOCTOR;
+import static main.java.HospitalManagementSystem.repository.query.DoctorQuery.DEACTIVATE_DOCTOR;
 
 public class DoctorDAOImpl {
 
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
-  public static boolean insertDoctor(String name, String specialisation) {
+  public boolean insertDoctor(DoctorDTO doctor) {
 
-    try {
-      Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DOCTOR);
+    try (Connection connection = connectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DOCTOR)) {
 
-      preparedStatement.setString(1, name);
-      preparedStatement.setString(2, specialisation);
+      preparedStatement.setString(1, doctor.getName());
+      preparedStatement.setInt(2, doctor.getSpecialisationId());
+      preparedStatement.setInt(3, doctor.getYearsOfExperience());
+      preparedStatement.setString(4, doctor.getShiftStart());
+      preparedStatement.setString(5, doctor.getShiftEnd());
 
       int updatedRows = preparedStatement.executeUpdate();
 
@@ -33,12 +43,12 @@ public class DoctorDAOImpl {
         System.out.println("Doctor added successfully!");
         return true;
       } else {
-        System.err.println("Doctor insert failed for name: " + name + ", specialisation: " + specialisation);
+        System.err.println("Doctor insert failed for: " + doctor);
         return false;
       }
 
     } catch (SQLException e) {
-      System.err.println("An error occurred while inserting Doctor info for name: " + name + ", specialisation: " + specialisation);
+      System.err.println("An error occurred while inserting Doctor: " + doctor);
       e.printStackTrace();
     }
 
@@ -46,21 +56,15 @@ public class DoctorDAOImpl {
 
   }
 
-  public static Optional<main.java.HospitalManagementSystem.repository.dao.DoctorDAO> getDoctorById(int id) {
+  public Optional<DoctorDTO> getDoctorById(int id) {
 
-    try {
-      Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_BY_ID);
+    try (Connection connection = connectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_BY_ID)) {
 
       preparedStatement.setInt(1, id);
 
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      if(resultSet.next()) {
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToDoctor(resultSet);
-      } else {
-        System.err.println("Get doctor failed for id: " + id);
-        return Optional.empty();
       }
 
     } catch (SQLException e) {
@@ -72,25 +76,23 @@ public class DoctorDAOImpl {
 
   }
 
-  public static Optional<List<main.java.HospitalManagementSystem.repository.dao.DoctorDAO>> getDoctorBySpecialisation(String specialisation) {
+  public Optional<List<DoctorDTO>> getDoctorBySpecialisation(Integer specialisationId) {
 
-    try {
-      Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_BY_SPECIALISATION);
+    if(Objects.isNull(specialisationId)) {
+      return Optional.empty();
+    }
 
-      preparedStatement.setString(1, specialisation);
+    try (Connection connection = connectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_BY_SPECIALISATION)) {
 
-      ResultSet resultSet = preparedStatement.executeQuery();
+      preparedStatement.setInt(1, specialisationId);
 
-      if(resultSet.next()) {
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToDoctorList(resultSet);
-      } else {
-        System.err.println("Get doctor failed for specialisation: " + specialisation);
-        return Optional.empty();
       }
 
     } catch (SQLException e) {
-      System.err.println("SQLException occurred occurred while getting Doctor info for specialisation: " + specialisation);
+      System.err.println("SQLException occurred occurred while getting Doctor info for specialisationId: " + specialisationId);
       e.printStackTrace();
     }
 
@@ -98,18 +100,13 @@ public class DoctorDAOImpl {
 
   }
 
-  public static Optional<List<main.java.HospitalManagementSystem.repository.dao.DoctorDAO>> getAllDoctors() {
+  public Optional<List<DoctorDTO>> getAllDoctors() {
 
-    try {
-      Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DOCTORS);
-      ResultSet resultSet = preparedStatement.executeQuery();
+    try (Connection connection = connectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DOCTORS)) {
 
-      if(resultSet.next()) {
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToDoctorList(resultSet);
-      } else {
-        System.err.println("Get all doctor query failed!");
-        return Optional.empty();
       }
 
     } catch (SQLException e) {
@@ -118,6 +115,62 @@ public class DoctorDAOImpl {
     }
 
     return Optional.empty();
+
+  }
+
+  public boolean updateDoctor(DoctorDTO updatedDoctor) {
+
+    try (Connection connection = connectionManager.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DOCTOR)) {
+
+      preparedStatement.setString(1, updatedDoctor.getName());
+      preparedStatement.setInt(2, updatedDoctor.getSpecialisationId());
+      preparedStatement.setInt(3, updatedDoctor.getYearsOfExperience());
+      preparedStatement.setString(4, updatedDoctor.getShiftStart());
+      preparedStatement.setString(5, updatedDoctor.getShiftEnd());
+      preparedStatement.setInt(6, updatedDoctor.getId());
+
+      int updatedRows = preparedStatement.executeUpdate();
+
+      if(updatedRows > 0) {
+        System.out.println("Doctor updated successfully!");
+        return true;
+      } else {
+        System.err.println("Doctor updated failed for " + updatedDoctor);
+        return false;
+      }
+
+    } catch (SQLException e) {
+      System.err.println("An error occurred while inserting Doctor info for " + updatedDoctor);
+      e.printStackTrace();
+    }
+
+    return false;
+
+  }
+
+  public boolean deactivateDoctor(int id) {
+
+    try (Connection connection = connectionManager.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(DEACTIVATE_DOCTOR)) {
+
+      preparedStatement.setInt(1, id);
+      int updatedRows = preparedStatement.executeUpdate();
+
+      if(updatedRows > 0) {
+        System.out.println("Doctor deactivated successfully!");
+        return true;
+      } else {
+        System.err.println("Doctor deactivation failed for Doctor id: " + id);
+        return false;
+      }
+
+    } catch (SQLException e) {
+      System.err.println("An error occurred while deactivating Doctor id: " + id);
+      e.printStackTrace();
+    }
+
+    return false;
 
   }
 

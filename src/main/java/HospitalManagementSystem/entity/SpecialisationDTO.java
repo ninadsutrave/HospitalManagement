@@ -6,6 +6,10 @@ import lombok.Data;
 @Builder
 @Data
 public class SpecialisationDTO {
-  Integer id;
-  String name;
+  private Integer id;
+  private String name;
+
+  public void print() {
+    System.out.println(id + ". " + name);
+  }
 }
