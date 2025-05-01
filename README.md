@@ -21,9 +21,9 @@ Admin View
 - Add, view, edit or delete patient information to the database
 - Add, view, edit or delete doctor information to the database
 
-### ER Diagrams
+### ER Diagram
 
-(add triggers)
+![ER Diagram](./assets/ERDiagram.png)
 
 ### Previews
 
