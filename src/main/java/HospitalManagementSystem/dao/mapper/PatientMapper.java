@@ -25,8 +25,8 @@ public class PatientMapper {
         .gender(resultSet.getString("gender"))
         .phoneNumber(resultSet.getString("phone_number"))
         .isActive(resultSet.getInt("is_active"))
-        .createdAt(resultSet.getString("created_at"))
-        .recUpdatedAt(resultSet.getString("rec_updated_at"))
+        .createdAt(resultSet.getTimestamp("created_at"))
+        .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
         .build();
 
       return Optional.of(patient);
@@ -57,8 +57,8 @@ public class PatientMapper {
           .gender(resultSet.getString("gender"))
           .phoneNumber(resultSet.getString("phone_number"))
           .isActive(resultSet.getInt("is_active"))
-          .createdAt(resultSet.getString("created_at"))
-          .recUpdatedAt(resultSet.getString("rec_updated_at"))
+          .createdAt(resultSet.getTimestamp("created_at"))
+          .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
           .build());
       }
 

@@ -30,7 +30,7 @@ public class AppointmentDAOImpl {
 
       preparedStatement.setInt(1, appointment.getPatientId());
       preparedStatement.setInt(2, appointment.getDoctorId());
-      preparedStatement.setString(3, appointment.getDate());
+      preparedStatement.setDate(3, appointment.getDate());
 
       int updatedRows = preparedStatement.executeUpdate();
 
@@ -98,9 +98,9 @@ public class AppointmentDAOImpl {
     try (Connection connection = connectionManager.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_APPOINTMENT)) {
 
-      preparedStatement.setString(1, appointment.getDate());
-      preparedStatement.setString(2, appointment.getStartTime());
-      preparedStatement.setString(3, appointment.getEndTime());
+      preparedStatement.setDate(1, appointment.getDate());
+      preparedStatement.setTime(2, appointment.getStartTime());
+      preparedStatement.setTime(3, appointment.getEndTime());
 
       int rowsUpdated = preparedStatement.executeUpdate();
 

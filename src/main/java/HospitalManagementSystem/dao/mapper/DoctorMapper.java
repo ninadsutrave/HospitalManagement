@@ -23,11 +23,11 @@ public class DoctorMapper {
         .name(resultSet.getString("name"))
         .specialisationId(resultSet.getInt("specialisation_id"))
         .yearsOfExperience(resultSet.getInt("years_of_experience"))
-        .shiftStart(resultSet.getString("shift_start_time"))
-        .shiftEnd(resultSet.getString("shift_end_time"))
+        .shiftStart(resultSet.getTime("shift_start_time"))
+        .shiftEnd(resultSet.getTime("shift_end_time"))
         .isActive(resultSet.getInt("is_active"))
-        .createdAt(resultSet.getString("created_at"))
-        .recUpdatedAt(resultSet.getString("rec_updated_at"))
+        .createdAt(resultSet.getTimestamp("created_at"))
+        .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
         .build();
 
       return Optional.of(doctor);
@@ -56,11 +56,11 @@ public class DoctorMapper {
           .name(resultSet.getString("name"))
           .specialisationId(resultSet.getInt("specialisation_id"))
           .yearsOfExperience(resultSet.getInt("years_of_experience"))
-          .shiftStart(resultSet.getString("shift_start_time"))
-          .shiftEnd(resultSet.getString("shift_end_time"))
+          .shiftStart(resultSet.getTime("shift_start_time"))
+          .shiftEnd(resultSet.getTime("shift_end_time"))
           .isActive(resultSet.getInt("is_active"))
-          .createdAt(resultSet.getString("created_at"))
-          .recUpdatedAt(resultSet.getString("rec_updated_at"))
+          .createdAt(resultSet.getTimestamp("created_at"))
+          .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
           .build());
       }
 

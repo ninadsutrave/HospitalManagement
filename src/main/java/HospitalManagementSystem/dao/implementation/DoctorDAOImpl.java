@@ -33,8 +33,8 @@ public class DoctorDAOImpl {
       preparedStatement.setString(1, doctor.getName());
       preparedStatement.setInt(2, doctor.getSpecialisationId());
       preparedStatement.setInt(3, doctor.getYearsOfExperience());
-      preparedStatement.setString(4, doctor.getShiftStart());
-      preparedStatement.setString(5, doctor.getShiftEnd());
+      preparedStatement.setTime(4, doctor.getShiftStart());
+      preparedStatement.setTime(5, doctor.getShiftEnd());
 
       int updatedRows = preparedStatement.executeUpdate();
 
@@ -107,8 +107,8 @@ public class DoctorDAOImpl {
       preparedStatement.setString(1, updatedDoctor.getName());
       preparedStatement.setInt(2, updatedDoctor.getSpecialisationId());
       preparedStatement.setInt(3, updatedDoctor.getYearsOfExperience());
-      preparedStatement.setString(4, updatedDoctor.getShiftStart());
-      preparedStatement.setString(5, updatedDoctor.getShiftEnd());
+      preparedStatement.setTime(4, updatedDoctor.getShiftStart());
+      preparedStatement.setTime(5, updatedDoctor.getShiftEnd());
       preparedStatement.setInt(6, updatedDoctor.getIsActive());
       preparedStatement.setInt(7, updatedDoctor.getId());
 

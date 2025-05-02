@@ -3,6 +3,9 @@ package main.java.HospitalManagementSystem.entity;
 import lombok.Builder;
 import lombok.Data;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 @Builder
 @Data
 public class DoctorDTO {
@@ -10,11 +13,11 @@ public class DoctorDTO {
   private String name;
   private Integer specialisationId;
   private Integer yearsOfExperience;
-  private String shiftStart;
-  private String shiftEnd;
+  private Time shiftStart;
+  private Time shiftEnd;
   private Integer isActive;
-  private String createdAt;
-  private String recUpdatedAt;
+  private Timestamp createdAt;
+  private Timestamp recUpdatedAt;
 
   public void print() {
     System.out.println("  ID                : " + id);

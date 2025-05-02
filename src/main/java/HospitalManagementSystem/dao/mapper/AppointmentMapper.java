@@ -24,9 +24,9 @@ public class AppointmentMapper {
           .id(resultSet.getInt("id"))
           .doctorId(resultSet.getInt("doctor_id"))
           .patientId(resultSet.getInt("patient_id"))
-          .date(resultSet.getString("date"))
-          .startTime(resultSet.getString("start_time"))
-          .endTime(resultSet.getString("end_time"))
+          .date(resultSet.getDate("date"))
+          .startTime(resultSet.getTime("start_time"))
+          .endTime(resultSet.getTime("end_time"))
           .notes(resultSet.getString("notes"))
           .build();
 

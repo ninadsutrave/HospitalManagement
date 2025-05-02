@@ -27,7 +27,11 @@ Admin view
 
 ## 👁 Previews
 
-change DATE and TIMESTAMP data type in DTOs
+
+## ➕ Possible additions
+
+- Add password protection to user/admin roles
+- Add GUI using Java Swing or JavaFX
 
 
 ## ⚙️ Setup Instructions
@@ -81,30 +85,6 @@ source sql/create_triggers.sql;
 source sql/insert_seed_data.sql;
 ```
 
----
-
-### 4. 🔗 Update Database Credentials
-
-In your Java code, locate the database connection part, e.g.:
-
-```java
-String url = "jdbc:mysql://localhost:3306/HospitalManagement";
-String user = "root";
-String password = "password";
-```
-
-(update these with your own MySQL credentials)
+With these in place you're ready to run the application!
 
 ---
-
-### 5. ▶️ Run the Application
-
-- Open the project in IntelliJ.
-- Ensure the MySQL connector `.jar` is linked.
-- Run the main class from `src/`.
-
-
-## ➕ Possible additions
-
-- Add password protection to user/admin roles
-- Add GUI using Java Swing or JavaFX

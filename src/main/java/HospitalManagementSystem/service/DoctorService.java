@@ -3,6 +3,9 @@ package main.java.HospitalManagementSystem.service;
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
 import main.java.HospitalManagementSystem.dao.implementation.DoctorDAOImpl;
 
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -60,15 +63,21 @@ public class DoctorService {
     System.out.print("Enter shift end time: ");
     String shiftEnd = scanner.next();
 
-    DoctorDTO doctor = DoctorDTO.builder()
-      .name(name)
-      .specialisationId(specialisationId)
-      .yearsOfExperience(yearsOfExperience)
-      .shiftStart(shiftStart)
-      .shiftEnd(shiftEnd)
-      .build();
+    try {
+      DoctorDTO doctor = DoctorDTO.builder()
+        .name(name)
+        .specialisationId(specialisationId)
+        .yearsOfExperience(yearsOfExperience)
+        .shiftStart(Time.valueOf(LocalTime.parse(shiftStart)))
+        .shiftEnd(Time.valueOf(LocalTime.parse(shiftEnd)))
+        .build();
 
-    doctorDAOImpl.insertDoctor(doctor);
+      doctorDAOImpl.insertDoctor(doctor);
+
+    } catch(DateTimeParseException e) {
+      System.err.println("Invalid time format used!");
+      e.printStackTrace();
+    }
 
   }
 
@@ -124,17 +133,22 @@ public class DoctorService {
     System.out.print("Enter isActive: ");
     Integer isActive = scanner.nextInt();
 
-    DoctorDTO updatedDoctor = DoctorDTO.builder()
-      .id(doctor.getId())
-      .name(name)
-      .specialisationId(specialisationId)
-      .yearsOfExperience(yearsOfExperience)
-      .shiftStart(shiftStart)
-      .shiftEnd(shiftEnd)
-      .isActive(isActive)
-      .build();
+    try {
+      DoctorDTO updatedDoctor = DoctorDTO.builder()
+        .id(doctor.getId())
+        .name(name)
+        .specialisationId(specialisationId)
+        .yearsOfExperience(yearsOfExperience)
+        .shiftStart(Time.valueOf(LocalTime.parse(shiftStart)))
+        .shiftEnd(Time.valueOf(LocalTime.parse(shiftEnd)))
+        .isActive(isActive)
+        .build();
 
-    doctorDAOImpl.updateDoctor(updatedDoctor);
+      doctorDAOImpl.updateDoctor(updatedDoctor);
+    } catch(DateTimeParseException e) {
+      System.err.println("Invalid time format used!");
+      e.printStackTrace();;
+    }
 
   }
 

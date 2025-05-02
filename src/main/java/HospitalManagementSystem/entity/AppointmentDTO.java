@@ -3,18 +3,22 @@ package main.java.HospitalManagementSystem.entity;
 import lombok.Builder;
 import lombok.Data;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 @Builder
 @Data
 public class AppointmentDTO {
   private Integer id;
   private Integer patientId;
   private Integer doctorId;
-  private String date;
-  private String startTime;
-  private String endTime;
+  private Date date;
+  private Time startTime;
+  private Time endTime;
   private String notes;
-  private String createdAt;
-  private String recUpdatedAt;
+  private Timestamp createdAt;
+  private Timestamp recUpdatedAt;
 
   public void print() {
     System.out.println("  ID          : " + id);
