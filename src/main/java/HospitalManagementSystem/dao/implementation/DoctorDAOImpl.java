@@ -16,7 +16,6 @@ import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDo
 import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDoctorList;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.INSERT_DOCTOR;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_ID;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_ALL_DOCTORS;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_SPECIALISATION;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.UPDATE_DOCTOR;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.DEACTIVATE_DOCTOR;
@@ -93,24 +92,6 @@ public class DoctorDAOImpl {
 
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting Doctor info for specialisationId: " + specialisationId);
-      e.printStackTrace();
-    }
-
-    return Optional.empty();
-
-  }
-
-  public Optional<List<DoctorDTO>> getAllDoctors() {
-
-    try (Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DOCTORS)) {
-
-      try(ResultSet resultSet = preparedStatement.executeQuery()) {
-        return mapToDoctorList(resultSet);
-      }
-
-    } catch (SQLException e) {
-      System.err.println("SQLException occurred occurred while getting all Doctor info");
       e.printStackTrace();
     }
 

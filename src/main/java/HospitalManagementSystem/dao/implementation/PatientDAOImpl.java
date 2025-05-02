@@ -8,14 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 import static main.java.HospitalManagementSystem.dao.mapper.PatientMapper.mapToPatient;
-import static main.java.HospitalManagementSystem.dao.mapper.PatientMapper.mapToPatientList;
 import static main.java.HospitalManagementSystem.dao.query.PatientQuery.INSERT_PATIENT;
 import static main.java.HospitalManagementSystem.dao.query.PatientQuery.GET_PATIENT_BY_ID;
-import static main.java.HospitalManagementSystem.dao.query.PatientQuery.GET_ALL_PATIENTS;
 import static main.java.HospitalManagementSystem.dao.query.PatientQuery.UPDATE_PATIENT;
 import static main.java.HospitalManagementSystem.dao.query.PatientQuery.DEACTIVATE_PATIENT;
 
@@ -66,24 +63,6 @@ public class PatientDAOImpl {
 
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting Patient info for id: " + id);
-      e.printStackTrace();
-    }
-
-    return Optional.empty();
-
-  }
-
-  public Optional<List<PatientDTO>> getAllPatients() {
-
-    try (Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PATIENTS)) {
-
-      try(ResultSet resultSet = preparedStatement.executeQuery()) {
-        return mapToPatientList(resultSet);
-      }
-
-    } catch (SQLException e) {
-      System.err.println("SQLException occurred occurred while getting all Patient info");
       e.printStackTrace();
     }
 
