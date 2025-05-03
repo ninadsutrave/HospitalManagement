@@ -1,5 +1,6 @@
 package main.java.HospitalManagementSystem.service;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuService {
@@ -8,6 +9,7 @@ public class MenuService {
   DoctorService doctorService;
   SpecialisationService specialisationService;
   AppointmentService appointmentService;
+  private static final Scanner scanner = new Scanner(System.in);
 
   public MenuService() {
     patientService = new PatientService();
@@ -18,8 +20,6 @@ public class MenuService {
 
   public void showWelcomeScreen() {
 
-    Scanner scanner = new Scanner(System.in);
-
     while(true) {
       System.out.println("\nHOSPITAL MANAGEMENT SYSTEM");
 
@@ -28,15 +28,21 @@ public class MenuService {
       System.out.println("2. Patient");
       System.out.println("3. Exit\n");
 
-      int choice = scanner.nextInt(); scanner.nextLine();
+      try {
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-      switch(choice) {
-        case 1: showAdminMenu();
-                break;
-        case 2: showPatientMenu();
-                break;
-        case 3: return;
-        default: System.err.println("Enter a correct choice!\n");
+        switch (choice) {
+          case 1: showAdminMenu();
+                  break;
+          case 2: showPatientMenu();
+                  break;
+          case 3: return;
+          default: System.err.println("Enter a correct choice!\n");
+        }
+      } catch(InputMismatchException e) {
+        System.err.println("Invalid input!");
+        e.printStackTrace();
       }
 
     }
@@ -44,8 +50,6 @@ public class MenuService {
   }
 
   public void showAdminMenu() {
-
-    Scanner scanner = new Scanner(System.in);
 
     while(true) {
       System.out.println("\nHOSPITAL MANAGEMENT SYSTEM\nHello Admin!\n");
@@ -60,27 +64,33 @@ public class MenuService {
       System.out.println("8. Remove Doctor");
       System.out.println("9. Logout\n");
 
-      int choice = scanner.nextInt(); scanner.nextLine();
+      try {
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-      switch(choice) {
-        case 1: patientService.registerPatient();
-                break;
-        case 2: patientService.viewPatient();
-                break;
-        case 3: patientService.editPatient();
-                break;
-        case 4: patientService.removePatient();
-                break;
-        case 5: doctorService.addDoctor();
-                break;
-        case 6: doctorService.viewDoctorById();
-                break;
-        case 7: doctorService.editDoctor();
-                break;
-        case 8: doctorService.removeDoctor();
-                break;
-        case 9: return;
-        default: System.err.println("Enter a correct choice!\n");
+        switch (choice) {
+          case 1: patientService.registerPatient();
+                  break;
+          case 2: patientService.viewPatient();
+                  break;
+          case 3: patientService.editPatient();
+                  break;
+          case 4: patientService.removePatient();
+                  break;
+          case 5: doctorService.addDoctor();
+                  break;
+          case 6: doctorService.viewDoctorById();
+                  break;
+          case 7: doctorService.editDoctor();
+                  break;
+          case 8: doctorService.removeDoctor();
+                  break;
+          case 9: return;
+          default: System.err.println("Enter a correct choice!\n");
+        }
+      } catch(InputMismatchException e) {
+        System.err.println("Invalid input!");
+        e.printStackTrace();
       }
 
     }
@@ -88,8 +98,6 @@ public class MenuService {
   }
 
   public void showPatientMenu() {
-
-    Scanner scanner = new Scanner(System.in);
 
     while(true) {
       System.out.println("\nHOSPITAL MANAGEMENT SYSTEM\nHello Patient!\n");
@@ -101,20 +109,26 @@ public class MenuService {
       System.out.println("5. Cancel Appointment");
       System.out.println("6. Logout\n");
 
-      int choice = scanner.nextInt(); scanner.nextLine();
+      try {
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-      switch(choice) {
-        case 1: patientService.registerPatient();
-                break;
-        case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
-                doctorService.viewDoctors(specialisationId);
-                break;
-        case 3: break;
-        case 4: break;
-        case 5: appointmentService.cancelAppointment();
-                break;
-        case 6: return;
-        default: System.err.println("Enter a correct choice!\n");
+        switch (choice) {
+          case 1: patientService.registerPatient();
+                  break;
+          case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
+                  doctorService.viewDoctors(specialisationId);
+                  break;
+          case 3: break;
+          case 4: break;
+          case 5: appointmentService.cancelAppointment();
+                  break;
+          case 6: return;
+          default: System.err.println("Enter a correct choice!\n");
+        }
+      } catch(InputMismatchException e) {
+        System.err.println("Invalid input!");
+        e.printStackTrace();
       }
 
     }

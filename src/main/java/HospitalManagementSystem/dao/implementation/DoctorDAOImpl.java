@@ -1,6 +1,7 @@
 package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
+import main.java.HospitalManagementSystem.dao.interfaces.DoctorDAO;
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
@@ -20,7 +21,7 @@ import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTO
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.UPDATE_DOCTOR;
 import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.DEACTIVATE_DOCTOR;
 
-public class DoctorDAOImpl {
+public class DoctorDAOImpl implements DoctorDAO {
 
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);

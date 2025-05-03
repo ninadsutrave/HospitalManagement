@@ -1,13 +1,12 @@
 package main.java.HospitalManagementSystem.service;
 
 import main.java.HospitalManagementSystem.dao.implementation.AppointmentDAOImpl;
-
-import java.util.Scanner;
+import main.java.HospitalManagementSystem.dao.interfaces.AppointmentDAO;
+import main.java.HospitalManagementSystem.util.InputUtil;
 
 public class AppointmentService {
 
-  AppointmentDAOImpl appointmentDAOImpl;
-  private final Scanner scanner = new Scanner(System.in);
+  AppointmentDAO appointmentDAOImpl;
 
   public AppointmentService() {
     appointmentDAOImpl = new AppointmentDAOImpl();
@@ -16,9 +15,7 @@ public class AppointmentService {
   public void cancelAppointment() {
 
     System.out.println("CANCEL APPOINTMENT");
-
-    System.out.print("Enter appointment id: ");
-    int appointmentId = scanner.nextInt();
+    int appointmentId = InputUtil.readInt("Enter appointment id: ");
 
     appointmentDAOImpl.deleteAppointment(appointmentId);
 

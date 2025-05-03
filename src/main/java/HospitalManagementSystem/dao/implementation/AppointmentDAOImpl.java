@@ -1,6 +1,7 @@
 package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
+import main.java.HospitalManagementSystem.dao.interfaces.AppointmentDAO;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
@@ -18,7 +19,7 @@ import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.GET_
 import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.UPDATE_APPOINTMENT;
 import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.DELETE_APPOINTMENT;
 
-public class AppointmentDAOImpl {
+public class AppointmentDAOImpl implements AppointmentDAO {
 
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);

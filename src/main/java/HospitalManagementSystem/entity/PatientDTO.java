@@ -23,7 +23,7 @@ public class PatientDTO {
     System.out.println("  Age          : " + age);
     System.out.println("  Gender       : " + gender);
     System.out.println("  Phone        : " + phoneNumber);
-    System.out.println("  Active       : " + isActive);
+    System.out.println("  IsActive     : " + isActive);
     System.out.println("  CreatedAt    : " + createdAt);
     System.out.println("  RecUpdatedAt : " + recUpdatedAt);
   }

@@ -1,6 +1,7 @@
 package main.java.HospitalManagementSystem.dao.implementation;
 
 import main.java.HospitalManagementSystem.config.DatabaseConfig;
+import main.java.HospitalManagementSystem.dao.interfaces.SpecialisationDAO;
 import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 import static main.java.HospitalManagementSystem.dao.mapper.SpecialisationMapper.mapToSpecialisationList;
 import static main.java.HospitalManagementSystem.dao.query.SpecialisationQuery.GET_SPECIALISATION_LIST;
 
-public class SpecialisationDAOImpl {
+public class SpecialisationDAOImpl implements SpecialisationDAO {
 
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);

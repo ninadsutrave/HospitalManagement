@@ -1,15 +1,15 @@
 package main.java.HospitalManagementSystem.service;
 
+import main.java.HospitalManagementSystem.dao.interfaces.PatientDAO;
 import main.java.HospitalManagementSystem.entity.PatientDTO;
 import main.java.HospitalManagementSystem.dao.implementation.PatientDAOImpl;
+import main.java.HospitalManagementSystem.util.InputUtil;
 
 import java.util.Objects;
-import java.util.Scanner;
 
 public class PatientService {
 
-  PatientDAOImpl patientDAOImpl;
-  private final Scanner scanner = new Scanner(System.in);
+  PatientDAO patientDAOImpl;
 
   public PatientService() {
     patientDAOImpl = new PatientDAOImpl();
@@ -19,21 +19,17 @@ public class PatientService {
 
     System.out.println("ADD NEW PATIENT");
 
-    System.out.print("Enter name of patient: ");
-    String name = scanner.nextLine();
-    System.out.print("Enter age of patient: ");
-    int age = scanner.nextInt();
-    System.out.print("Enter gender of patient: ");
-    String gender = scanner.next();
-    System.out.print("Enter phone number: ");
-    String phoneNumber = scanner.next();
+    String name = InputUtil.readLine("Enter name of patient: ");
+    int age = InputUtil.readInt("Enter age of patient: ");
+    String gender = InputUtil.readLine("Enter gender of patient: ");
+    String phoneNumber = InputUtil.readLine("Enter phone number: ");
 
     PatientDTO patient = PatientDTO.builder()
-        .name(name)
-        .age(age)
-        .gender(gender)
-        .phoneNumber(phoneNumber)
-        .build();
+      .name(name)
+      .age(age)
+      .gender(gender)
+      .phoneNumber(phoneNumber)
+      .build();
 
     patientDAOImpl.insertPatient(patient);
 
@@ -43,51 +39,43 @@ public class PatientService {
 
     System.out.println("VIEW PATIENT");
 
-    System.out.print("Enter patient id: ");
-    int id = scanner.nextInt(); scanner.nextLine();
+    int id = InputUtil.readInt("Enter patient id: ");
 
     PatientDTO patient = patientDAOImpl
       .getPatientById(id)
       .orElse(null);
 
-    if(Objects.isNull(patient))  {
+    if (Objects.isNull(patient)) {
       System.err.println("Patient records not present!");
       return;
     }
 
     patient.print();
-
   }
 
   public void editPatient() {
 
     System.out.println("EDIT PATIENT");
 
-    System.out.print("Enter patient id: ");
-    int id = scanner.nextInt(); scanner.nextLine();
+    int id = InputUtil.readInt("Enter patient id: ");
 
     PatientDTO patient = patientDAOImpl
       .getPatientById(id)
       .orElse(null);
 
-    if(Objects.isNull(patient))  {
+    if (Objects.isNull(patient)) {
       System.err.println("Patient records not present!");
       return;
     }
 
     patient.print();
 
-    System.out.println("Re-enter all details: ");
-    System.out.print("Enter name of patient: ");
-    String name = scanner.nextLine();
-    System.out.print("Enter age of patient: ");
-    int age = scanner.nextInt();
-    System.out.print("Enter gender of patient: ");
-    String gender = scanner.next();
-    System.out.print("Enter phone number: ");
-    String phoneNumber = scanner.next();
-    System.out.print("Enter isActive: ");
-    Integer isActive = scanner.nextInt();
+    System.out.println("Enter updated details: ");
+    String name = InputUtil.readLine("Enter name of patient: ");
+    int age = InputUtil.readInt("Enter age of patient: ");
+    String gender = InputUtil.readLine("Enter gender of patient: ");
+    String phoneNumber = InputUtil.readLine("Enter phone number: ");
+    int isActive = InputUtil.readInt("Enter isActive: ");
 
     PatientDTO updatedPatient = PatientDTO.builder()
       .id(patient.getId())
@@ -98,7 +86,6 @@ public class PatientService {
       .isActive(isActive)
       .build();
 
-
     patientDAOImpl.updatePatient(updatedPatient);
 
   }
@@ -107,9 +94,7 @@ public class PatientService {
 
     System.out.println("REMOVE PATIENT");
 
-    System.out.print("Enter patient id: ");
-    int id = scanner.nextInt(); scanner.nextLine();
-
+    int id = InputUtil.readInt("Enter patient id: ");
     patientDAOImpl.deactivatePatient(id);
 
   }

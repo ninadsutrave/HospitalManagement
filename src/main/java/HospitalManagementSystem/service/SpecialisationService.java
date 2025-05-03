@@ -1,15 +1,15 @@
 package main.java.HospitalManagementSystem.service;
 
+import main.java.HospitalManagementSystem.dao.interfaces.SpecialisationDAO;
 import main.java.HospitalManagementSystem.entity.SpecialisationDTO;
 import main.java.HospitalManagementSystem.dao.implementation.SpecialisationDAOImpl;
+import main.java.HospitalManagementSystem.util.InputUtil;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class SpecialisationService {
 
-  SpecialisationDAOImpl specialisationDAOImpl;
-  private final Scanner scanner = new Scanner(System.in);
+  SpecialisationDAO specialisationDAOImpl;
 
   public SpecialisationService() {
     specialisationDAOImpl = new SpecialisationDAOImpl();
@@ -29,9 +29,7 @@ public class SpecialisationService {
       specialisation.print();
     }
 
-    System.out.println("Enter a specialisation id: ");
-    int specialisationChoice = scanner.nextInt();
-
+    int specialisationChoice = InputUtil.readInt("Enter a specialisation id: ");
     if(specialisationChoice <= 0 || specialisationChoice > specialisationList.size()) {
       return null;
     }
