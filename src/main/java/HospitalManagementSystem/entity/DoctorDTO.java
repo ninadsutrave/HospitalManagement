@@ -12,6 +12,7 @@ public class DoctorDTO {
   private Integer id;
   private String name;
   private Integer specialisationId;
+  private String specialisation;
   private Integer yearsOfExperience;
   private Time shiftStart;
   private Time shiftEnd;

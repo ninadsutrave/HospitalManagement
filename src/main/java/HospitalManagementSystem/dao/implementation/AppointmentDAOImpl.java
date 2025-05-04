@@ -4,15 +4,20 @@ import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.dao.interfaces.AppointmentDAO;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.util.TimeRange;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Date;
+
 import java.util.List;
 import java.util.Optional;
 
+import static main.java.HospitalManagementSystem.dao.mapper.AppointmentMapper.mapToAppointment;
 import static main.java.HospitalManagementSystem.dao.mapper.AppointmentMapper.mapToAppointmentList;
+import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.VIEW_APPOINTMENT;
 import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.INSERT_APPOINTMENT;
 import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.GET_PATIENT_APPOINTMENTS_FOR_DATE;
 import static main.java.HospitalManagementSystem.dao.query.AppointmentQuery.GET_DOCTOR_APPOINTMENTS_FOR_DATE;
@@ -23,6 +28,24 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
+
+  public Optional<AppointmentDTO> getAppointmentById(int id) {
+
+    try(Connection connection = connectionManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(VIEW_APPOINTMENT)) {
+
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        return mapToAppointment(resultSet);
+      }
+
+    } catch(SQLException e) {
+      System.err.println("SQLException occurred while getting appointment details for Appointment id: " + id);
+      e.printStackTrace();
+    }
+
+    return Optional.empty();
+
+  }
 
   public boolean insertAppointment(AppointmentDTO appointment) {
 
@@ -52,13 +75,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
-  public Optional<List<AppointmentDTO>> getPatientAppointmentsForDate(int patientId, String appointmentDate) {
+  public Optional<List<TimeRange>> getPatientAppointmentsForDate(int patientId, Date appointmentDate) {
 
     try(Connection connection = connectionManager.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(GET_PATIENT_APPOINTMENTS_FOR_DATE)) {
 
       preparedStatement.setInt(1, patientId);
-      preparedStatement.setString(2, appointmentDate);
+      preparedStatement.setDate(2, appointmentDate);
 
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToAppointmentList(resultSet);
@@ -73,13 +96,13 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
-  public Optional<List<AppointmentDTO>> getDoctorAppointmentsForDate(int doctorId, String appointmentDate) {
+  public Optional<List<TimeRange>> getDoctorAppointmentsForDate(int doctorId, Date appointmentDate) {
 
     try (Connection connection = connectionManager.getConnection();
       PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_APPOINTMENTS_FOR_DATE)) {
 
       preparedStatement.setInt(1, doctorId);
-      preparedStatement.setString(2, appointmentDate);
+      preparedStatement.setDate(2, appointmentDate);
 
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToAppointmentList(resultSet);

@@ -1,17 +1,21 @@
 package main.java.HospitalManagementSystem.dao.interfaces;
 
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
+import main.java.HospitalManagementSystem.util.TimeRange;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 public interface AppointmentDAO {
 
+  Optional<AppointmentDTO> getAppointmentById(int id);
+
   boolean insertAppointment(AppointmentDTO appointment);
 
-  Optional<List<AppointmentDTO>> getPatientAppointmentsForDate(int patientId, String appointmentDate);
+  Optional<List<TimeRange>> getPatientAppointmentsForDate(int patientId, Date appointmentDate);
 
-  Optional<List<AppointmentDTO>> getDoctorAppointmentsForDate(int doctorId, String appointmentDate);
+  Optional<List<TimeRange>> getDoctorAppointmentsForDate(int doctorId, Date appointmentDate);
 
   boolean updateAppointment(AppointmentDTO appointment);
 

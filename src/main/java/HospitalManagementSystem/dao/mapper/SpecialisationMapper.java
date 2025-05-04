@@ -29,7 +29,7 @@ public class SpecialisationMapper {
       }
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Specialisation DAO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Specialisation DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 

@@ -32,7 +32,7 @@ public class PatientMapper {
       return Optional.of(patient);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Patient DAO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Patient DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 
@@ -65,7 +65,7 @@ public class PatientMapper {
       return Optional.of(patientList);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Patient DAO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Patient DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 

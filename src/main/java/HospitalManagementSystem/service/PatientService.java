@@ -5,8 +5,6 @@ import main.java.HospitalManagementSystem.entity.PatientDTO;
 import main.java.HospitalManagementSystem.dao.implementation.PatientDAOImpl;
 import main.java.HospitalManagementSystem.util.InputUtil;
 
-import java.util.Objects;
-
 public class PatientService {
 
   PatientDAO patientDAOImpl;
@@ -31,6 +29,7 @@ public class PatientService {
       .phoneNumber(phoneNumber)
       .build();
 
+    // print patient id
     patientDAOImpl.insertPatient(patient);
 
   }
@@ -45,7 +44,7 @@ public class PatientService {
       .getPatientById(id)
       .orElse(null);
 
-    if (Objects.isNull(patient)) {
+    if (patient == null) {
       System.err.println("Patient records not present!");
       return;
     }
@@ -63,7 +62,7 @@ public class PatientService {
       .getPatientById(id)
       .orElse(null);
 
-    if (Objects.isNull(patient)) {
+    if (patient == null) {
       System.err.println("Patient records not present!");
       return;
     }

@@ -20,6 +20,7 @@ Patient view
 Admin view
 - Add, view, edit or delete doctor information to the database
 - Add, view, edit or delete patient information to the database
+- Get doctor's daily report
 
 ## 📝 ER Diagram
 

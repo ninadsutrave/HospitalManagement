@@ -5,10 +5,7 @@ import main.java.HospitalManagementSystem.dao.interfaces.PatientDAO;
 import main.java.HospitalManagementSystem.entity.PatientDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
 
 import static main.java.HospitalManagementSystem.dao.mapper.PatientMapper.mapToPatient;
@@ -25,7 +22,7 @@ public class PatientDAOImpl implements PatientDAO {
   public boolean insertPatient(PatientDTO patient) {
 
     try (Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PATIENT)) {
+      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PATIENT, Statement.RETURN_GENERATED_KEYS)) {
 
       preparedStatement.setString(1, patient.getName());
       preparedStatement.setInt(2, patient.getAge());
@@ -35,7 +32,15 @@ public class PatientDAOImpl implements PatientDAO {
       int updatedRows = preparedStatement.executeUpdate();
 
       if(updatedRows > 0) {
-        System.out.println("Patient added successfully!");
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            int generatedId = generatedKeys.getInt(1);
+            System.out.println("Patient added successfully with ID: " + generatedId);
+          } else {
+            System.err.println("Insertion succeeded but no ID returned.");
+            return false;
+          }
+        }
         return true;
       } else {
         System.err.println("Patient insert failed for name: " + patient);

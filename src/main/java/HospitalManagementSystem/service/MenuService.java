@@ -62,6 +62,7 @@ public class MenuService {
       System.out.println("6. View Doctor");
       System.out.println("7. Edit Doctor");
       System.out.println("8. Remove Doctor");
+      System.out.println("9. Get Doctor's Report");
       System.out.println("9. Logout\n");
 
       try {
@@ -119,7 +120,8 @@ public class MenuService {
           case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
                   doctorService.viewDoctors(specialisationId);
                   break;
-          case 3: break;
+          case 3: appointmentService.bookAppointment();
+                  break;
           case 4: break;
           case 5: appointmentService.cancelAppointment();
                   break;

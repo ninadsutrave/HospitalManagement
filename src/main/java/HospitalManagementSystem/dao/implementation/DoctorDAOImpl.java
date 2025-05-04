@@ -4,22 +4,19 @@ import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.dao.interfaces.DoctorDAO;
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
+import main.java.HospitalManagementSystem.util.TimeRange;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDoctor;
 import static main.java.HospitalManagementSystem.dao.mapper.DoctorMapper.mapToDoctorList;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.INSERT_DOCTOR;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_ID;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.GET_DOCTOR_BY_SPECIALISATION;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.UPDATE_DOCTOR;
-import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.DEACTIVATE_DOCTOR;
+import static main.java.HospitalManagementSystem.dao.query.DoctorQuery.*;
 
 public class DoctorDAOImpl implements DoctorDAO {
 
@@ -29,7 +26,7 @@ public class DoctorDAOImpl implements DoctorDAO {
   public boolean insertDoctor(DoctorDTO doctor) {
 
     try (Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DOCTOR)) {
+      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DOCTOR, Statement.RETURN_GENERATED_KEYS)) {
 
       preparedStatement.setString(1, doctor.getName());
       preparedStatement.setInt(2, doctor.getSpecialisationId());
@@ -40,7 +37,15 @@ public class DoctorDAOImpl implements DoctorDAO {
       int updatedRows = preparedStatement.executeUpdate();
 
       if(updatedRows > 0) {
-        System.out.println("Doctor added successfully!");
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            int generatedId = generatedKeys.getInt(1);
+            System.out.println("Doctor added successfully with ID: " + generatedId);
+          } else {
+            System.err.println("Insertion succeeded but no ID returned.");
+            return false;
+          }
+        }
         return true;
       } else {
         System.err.println("Doctor insert failed for: " + doctor);
@@ -78,7 +83,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
   public Optional<List<DoctorDTO>> getDoctorBySpecialisation(Integer specialisationId) {
 
-    if(Objects.isNull(specialisationId)) {
+    if(specialisationId == null) {
       return Optional.empty();
     }
 
@@ -98,6 +103,28 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     return Optional.empty();
 
+  }
+
+  public Optional<TimeRange> getDoctorShift(int id) {
+
+    try (Connection connection = connectionManager.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_SHIFT)) {
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      TimeRange doctorShift = TimeRange.builder()
+        .startTime(resultSet.getTime("shift_start"))
+        .endTime(resultSet.getTime("shift_end"))
+        .build();
+
+      return Optional.of(doctorShift);
+
+    } catch(SQLException e) {
+      System.err.println("SQLException occurred while getting Doctor shift info for Doctor id: " + id);
+      e.printStackTrace();
+    }
+
+    return Optional.empty();
   }
 
   public boolean updateDoctor(DoctorDTO updatedDoctor) {
@@ -124,7 +151,7 @@ public class DoctorDAOImpl implements DoctorDAO {
       }
 
     } catch (SQLException e) {
-      System.err.println("An error occurred while inserting Doctor info for " + updatedDoctor);
+      System.err.println("SQLException occurred while inserting Doctor info for " + updatedDoctor);
       e.printStackTrace();
     }
 
@@ -149,7 +176,7 @@ public class DoctorDAOImpl implements DoctorDAO {
       }
 
     } catch (SQLException e) {
-      System.err.println("An error occurred while deactivating Doctor id: " + id);
+      System.err.println("SQLException occurred while deactivating Doctor id: " + id);
       e.printStackTrace();
     }
 

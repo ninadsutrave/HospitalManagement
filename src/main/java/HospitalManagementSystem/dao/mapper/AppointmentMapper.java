@@ -1,6 +1,7 @@
 package main.java.HospitalManagementSystem.dao.mapper;
 
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
+import main.java.HospitalManagementSystem.util.TimeRange;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,9 +11,32 @@ import java.util.Optional;
 
 public class AppointmentMapper {
 
-  public static Optional<List<AppointmentDTO>> mapToAppointmentList(ResultSet resultSet) {
+  public static Optional<AppointmentDTO> mapToAppointment(ResultSet resultSet) {
 
-    List<AppointmentDTO> appointmentList = new ArrayList<>();
+    try {
+      AppointmentDTO appointment = AppointmentDTO.builder()
+        .id(resultSet.getInt("id"))
+        .patientId(resultSet.getInt("patient_id"))
+        .doctorId(resultSet.getInt("doctor_id"))
+        .date(resultSet.getDate("date"))
+        .startTime(resultSet.getTime("start_time"))
+        .endTime(resultSet.getTime("end_time"))
+        .notes(resultSet.getString("notes"))
+        .build();
+
+      return Optional.of(appointment);
+
+    } catch (SQLException e) {
+      System.err.println("SQLException occurred while mapping Appointment DTO for query result: " + resultSet);
+    }
+
+    return Optional.empty();
+
+  }
+
+  public static Optional<List<TimeRange>> mapToAppointmentList(ResultSet resultSet) {
+
+    List<TimeRange> appointmentList = new ArrayList<>();
     try {
 
       if (resultSet == null || resultSet.isClosed()) {
@@ -20,20 +44,15 @@ public class AppointmentMapper {
       }
 
       while(resultSet.next()) {
-        AppointmentDTO appointment = AppointmentDTO.builder()
-          .id(resultSet.getInt("id"))
-          .doctorId(resultSet.getInt("doctor_id"))
-          .patientId(resultSet.getInt("patient_id"))
-          .date(resultSet.getDate("date"))
+        TimeRange appointment = TimeRange.builder()
           .startTime(resultSet.getTime("start_time"))
           .endTime(resultSet.getTime("end_time"))
-          .notes(resultSet.getString("notes"))
           .build();
 
         appointmentList.add(appointment);
       }
     } catch (SQLException e) {
-      System.err.println("Error mapping Appointment DTO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Appointment DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 

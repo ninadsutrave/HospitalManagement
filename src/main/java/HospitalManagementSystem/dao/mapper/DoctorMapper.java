@@ -22,6 +22,7 @@ public class DoctorMapper {
         .id(resultSet.getInt("id"))
         .name(resultSet.getString("name"))
         .specialisationId(resultSet.getInt("specialisation_id"))
+        .specialisation(resultSet.getString("specialisation"))
         .yearsOfExperience(resultSet.getInt("years_of_experience"))
         .shiftStart(resultSet.getTime("shift_start_time"))
         .shiftEnd(resultSet.getTime("shift_end_time"))
@@ -33,7 +34,7 @@ public class DoctorMapper {
       return Optional.of(doctor);
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor DTO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Doctor DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 
@@ -55,6 +56,7 @@ public class DoctorMapper {
           .id(resultSet.getInt("id"))
           .name(resultSet.getString("name"))
           .specialisationId(resultSet.getInt("specialisation_id"))
+          .specialisation(resultSet.getString("specialisation"))
           .yearsOfExperience(resultSet.getInt("years_of_experience"))
           .shiftStart(resultSet.getTime("shift_start_time"))
           .shiftEnd(resultSet.getTime("shift_end_time"))
@@ -65,7 +67,7 @@ public class DoctorMapper {
       }
 
     } catch(SQLException e) {
-      System.err.println("Error mapping Doctor DAO for query result: " + resultSet);
+      System.err.println("SQLException occurred while mapping Doctor DTO for query result: " + resultSet);
       e.printStackTrace();
     }
 

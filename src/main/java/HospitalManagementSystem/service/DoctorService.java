@@ -7,7 +7,6 @@ import main.java.HospitalManagementSystem.util.InputUtil;
 
 import java.sql.Time;
 import java.util.List;
-import java.util.Objects;
 
 public class DoctorService {
 
@@ -19,7 +18,7 @@ public class DoctorService {
 
   public void viewDoctors(Integer specialisationId) {
 
-    if(Objects.isNull(specialisationId)) {
+    if(specialisationId == null) {
       System.err.println("Invalid specialisation id!");
       return;
     }
@@ -39,7 +38,7 @@ public class DoctorService {
     System.out.println("+------+--------------------+--------------------+----------------------+");
 
     for(DoctorDTO doctor : doctors) {
-      System.out.printf("|  %-4s|  %-18s|  %-18s|  %-20s|\n", doctor.getId(), doctor.getName(), doctor.getSpecialisationId(), doctor.getYearsOfExperience());
+      System.out.printf("|  %-4s|  %-18s|  %-18s|  %-20s|\n", doctor.getId(), doctor.getName(), doctor.getSpecialisation(), doctor.getYearsOfExperience());
       System.out.println("+------+--------------------+--------------------+----------------------+");
     }
 
@@ -78,7 +77,7 @@ public class DoctorService {
       .getDoctorById(id)
       .orElse(null);
 
-    if (Objects.isNull(doctor)) {
+    if (doctor == null) {
       System.err.println("Doctor records not present!");
       return;
     }
@@ -97,7 +96,7 @@ public class DoctorService {
       .getDoctorById(id)
       .orElse(null);
 
-    if (Objects.isNull(doctor)) {
+    if (doctor == null) {
       System.err.println("Doctor records not present!");
       return;
     }
