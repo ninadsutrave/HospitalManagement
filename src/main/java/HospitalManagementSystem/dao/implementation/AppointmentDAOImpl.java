@@ -4,7 +4,7 @@ import main.java.HospitalManagementSystem.config.DatabaseConfig;
 import main.java.HospitalManagementSystem.dao.interfaces.AppointmentDAO;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 import main.java.HospitalManagementSystem.dao.database.DatabaseConnectionManager;
-import main.java.HospitalManagementSystem.util.TimeRange;
+import main.java.HospitalManagementSystem.entity.TimeRange;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -5,7 +5,7 @@ import main.java.HospitalManagementSystem.dao.implementation.DoctorDAOImpl;
 import main.java.HospitalManagementSystem.dao.interfaces.AppointmentDAO;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 import main.java.HospitalManagementSystem.util.InputUtil;
-import main.java.HospitalManagementSystem.util.TimeRange;
+import main.java.HospitalManagementSystem.entity.TimeRange;
 
 import java.sql.Date;
 import java.sql.Time;

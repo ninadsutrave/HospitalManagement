@@ -1,4 +1,4 @@
-package main.java.HospitalManagementSystem.util;
+package main.java.HospitalManagementSystem.entity;
 
 import lombok.Builder;
 import lombok.Data;

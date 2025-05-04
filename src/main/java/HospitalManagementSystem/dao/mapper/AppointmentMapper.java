@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.dao.mapper;
 
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
-import main.java.HospitalManagementSystem.util.TimeRange;
+import main.java.HospitalManagementSystem.entity.TimeRange;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

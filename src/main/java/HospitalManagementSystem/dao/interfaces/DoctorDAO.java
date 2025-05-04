@@ -1,7 +1,7 @@
 package main.java.HospitalManagementSystem.dao.interfaces;
 
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
-import main.java.HospitalManagementSystem.util.TimeRange;
+import main.java.HospitalManagementSystem.entity.TimeRange;
 
 import java.util.List;
 import java.util.Optional;
