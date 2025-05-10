@@ -8,10 +8,10 @@ CREATE TABLE `patient` (
   `phone_number` varchar(15) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `rec_updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `rec_updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_phone_number` (`phone_number`)
-)
+);
 
 CREATE TABLE `specialisation` (
   `id` int NOT NULL AUTO_INCREMENT,

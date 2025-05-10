@@ -89,7 +89,7 @@ mysql -u ${user} -p
 2. Run SQL scripts in this order:
 
 ```sql
-source sql/create_database.sql;
+source sql/create_databases.sql;
 source sql/create_tables.sql;
 source sql/create_triggers.sql;
 source sql/insert_seed_data.sql;

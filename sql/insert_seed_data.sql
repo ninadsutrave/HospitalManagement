@@ -20,7 +20,7 @@ INSERT INTO doctor (name, specialisation_id, years_of_experience, shift_start_ti
 ('Dr. Harish Agarwal', 17, 3, '08:00:00', '16:00:00', 1),
 ('Dr. Manju Nair', 18, 7, '10:00:00', '18:00:00', 1),
 ('Dr. Ankit Singh', 19, 9, '09:00:00', '17:00:00', 1),
-('Dr. Pooja Kapoor', 20, 20, '07:00:00', '15:00:00', 1);
+('Dr. Pooja Kapoor', 20, 20, '07:00:00', '15:00:00', 1),
 ('Dr. Meenal Pandey', 1, 9, '08:00:00', '16:00:00', 1),
 ('Dr. Mohan Rathi', 2, 12, '09:00:00', '17:00:00', 1),
 ('Dr. Arvind Raghavan', 3, 10, '10:00:00', '18:00:00', 1),
