@@ -28,6 +28,7 @@ Admin view
 
 ## 👁 Previews
 
+add service exceptions
 
 ## ➕ Possible additions
 

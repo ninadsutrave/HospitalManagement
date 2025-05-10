@@ -88,7 +88,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
       }
 
     } catch (SQLException e) {
-      System.err.println("SQLException occurred occurred while getting number of appointments for Patient id: " + patientId + " Appointment Date: " + appointmentDate);
+      System.err.println("SQLException occurred occurred while getting appointments for Patient id: " + patientId + " Appointment Date: " + appointmentDate);
       e.printStackTrace();
     }
 
@@ -109,7 +109,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
       }
 
     } catch (SQLException e) {
-      System.err.println("SQLException occurred occurred while getting number of appointments for Doctor id: " + doctorId + " Appointment Date: " + appointmentDate);
+      System.err.println("SQLException occurred occurred while getting appointments for Doctor id: " + doctorId + " Appointment Date: " + appointmentDate);
       e.printStackTrace();
     }
 

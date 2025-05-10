@@ -3,15 +3,15 @@ USE HospitalManagement;
 CREATE TABLE `patient` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `age` int DEFAULT NULL,
-  `gender` varchar(10) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `gender` enum('MALE','FEMALE','OTHER') DEFAULT NULL,
   `phone_number` varchar(15) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `rec_updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `rec_updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_phone_number` (`phone_number`)
-);
+)
 
 CREATE TABLE `specialisation` (
   `id` int NOT NULL AUTO_INCREMENT,

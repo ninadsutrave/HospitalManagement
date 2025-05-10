@@ -21,15 +21,15 @@ public class DoctorDTO {
   private Timestamp recUpdatedAt;
 
   public void print() {
-    System.out.println("  ID                : " + id);
-    System.out.println("  Name              : " + name);
-    System.out.println("  Specialisation    : " + specialisationId);
-    System.out.println("  Years of Exp.     : " + yearsOfExperience);
-    System.out.println("  Shift Start       : " + shiftStart);
-    System.out.println("  Shift End         : " + shiftEnd);
-    System.out.println("  IsActive          : " + isActive);
-    System.out.println("  CreatedAt         : " + createdAt);
-    System.out.println("  RecUpdatedAt      : " + recUpdatedAt);
+    System.out.println("  ID                 : " + id);
+    System.out.println("  Name               : " + name);
+    System.out.println("  Specialisation Id  : " + specialisationId);
+    System.out.println("  Years of Exp.      : " + yearsOfExperience);
+    System.out.println("  Shift Start        : " + shiftStart);
+    System.out.println("  Shift End          : " + shiftEnd);
+    System.out.println("  IsActive           : " + isActive);
+    System.out.println("  CreatedAt          : " + createdAt);
+    System.out.println("  RecUpdatedAt       : " + recUpdatedAt);
   }
 
 }

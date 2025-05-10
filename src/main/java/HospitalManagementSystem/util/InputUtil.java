@@ -62,4 +62,22 @@ public class InputUtil {
       }
     }
   }
+
+  public static <E extends Enum<E>> E readEnum(String prompt, Class<E> enumType) {
+    while (true) {
+      System.out.print(prompt);
+      String input = scanner.nextLine().trim().toUpperCase();
+
+      try {
+        return Enum.valueOf(enumType, input);
+      } catch (IllegalArgumentException e) {
+        System.err.println("Invalid input. Options are: ");
+        for (E constant : enumType.getEnumConstants()) {
+          System.err.print(constant.name().charAt(0) + constant.name().substring(1).toLowerCase() + " ");
+        }
+        System.err.println();
+      }
+    }
+  }
+
 }

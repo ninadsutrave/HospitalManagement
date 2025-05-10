@@ -1,5 +1,6 @@
 package main.java.HospitalManagementSystem.dao.mapper;
 
+import main.java.HospitalManagementSystem.entity.Gender;
 import main.java.HospitalManagementSystem.entity.PatientDTO;
 
 import java.sql.ResultSet;
@@ -18,11 +19,15 @@ public class PatientMapper {
         return Optional.empty();
       }
 
+      Gender gender = Optional.ofNullable(resultSet.getString("gender"))
+        .map(g -> Gender.valueOf(g.toUpperCase()))
+        .orElse(null);
+
       PatientDTO patient = PatientDTO.builder()
         .id(resultSet.getInt("id"))
         .name(resultSet.getString("name"))
-        .age(resultSet.getInt("age"))
-        .gender(resultSet.getString("gender"))
+        .dateOfBirth(resultSet.getDate("date_of_birth"))
+        .gender(gender)
         .phoneNumber(resultSet.getString("phone_number"))
         .isActive(resultSet.getInt("is_active"))
         .createdAt(resultSet.getTimestamp("created_at"))
@@ -49,12 +54,16 @@ public class PatientMapper {
         return Optional.empty();
       }
 
+      Gender gender = Optional.ofNullable(resultSet.getString("gender"))
+        .map(g -> Gender.valueOf(g.toUpperCase()))
+        .orElse(null);
+
       while(resultSet.next()) {
         patientList.add(PatientDTO.builder()
           .id(resultSet.getInt("id"))
           .name(resultSet.getString("name"))
-          .age(resultSet.getInt("age"))
-          .gender(resultSet.getString("gender"))
+          .dateOfBirth(resultSet.getDate("date_of_birth"))
+          .gender(gender)
           .phoneNumber(resultSet.getString("phone_number"))
           .isActive(resultSet.getInt("is_active"))
           .createdAt(resultSet.getTimestamp("created_at"))

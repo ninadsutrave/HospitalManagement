@@ -25,8 +25,8 @@ public class PatientDAOImpl implements PatientDAO {
       PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PATIENT, Statement.RETURN_GENERATED_KEYS)) {
 
       preparedStatement.setString(1, patient.getName());
-      preparedStatement.setInt(2, patient.getAge());
-      preparedStatement.setString(3, patient.getGender());
+      preparedStatement.setDate(2, patient.getDateOfBirth());
+      preparedStatement.setString(3, patient.getGender().toString());
       preparedStatement.setString(4, patient.getPhoneNumber());
 
       int updatedRows = preparedStatement.executeUpdate();
@@ -82,8 +82,8 @@ public class PatientDAOImpl implements PatientDAO {
          PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PATIENT)) {
 
       preparedStatement.setString(1, updatedPatient.getName());
-      preparedStatement.setInt(2, updatedPatient.getAge());
-      preparedStatement.setString(3, updatedPatient.getGender());
+      preparedStatement.setDate(2, updatedPatient.getDateOfBirth());
+      preparedStatement.setString(3, updatedPatient.getGender().toString());
       preparedStatement.setString(4, updatedPatient.getPhoneNumber());
       preparedStatement.setInt(5, updatedPatient.getIsActive());
       preparedStatement.setInt(6, updatedPatient.getId());

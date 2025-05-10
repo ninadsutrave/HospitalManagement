@@ -48,7 +48,6 @@ public class DoctorService {
 
     System.out.println("ADD NEW DOCTOR");
 
-    System.out.print("Enter name: ");
     String name = InputUtil.readLine("Enter name: ");
     int specialisationId = InputUtil.readInt("Enter specialisation id: ");
     int yearsOfExperience = InputUtil.readInt("Enter years of experience: ");
@@ -109,7 +108,6 @@ public class DoctorService {
     int yearsOfExperience = InputUtil.readInt("Enter years of experience: ");
     Time shiftStart = InputUtil.readTime("Enter shift start time: ");
     Time shiftEnd = InputUtil.readTime("Enter shift end time: ");
-    int isActive =InputUtil.readInt("Enter isActive: ");
 
     DoctorDTO updatedDoctor = DoctorDTO.builder()
       .id(doctor.getId())
@@ -118,7 +116,7 @@ public class DoctorService {
       .yearsOfExperience(yearsOfExperience)
       .shiftStart(shiftStart)
       .shiftEnd(shiftEnd)
-      .isActive(isActive)
+      .isActive(doctor.getIsActive())
       .build();
 
     doctorDAOImpl.updateDoctor(updatedDoctor);
@@ -131,6 +129,10 @@ public class DoctorService {
 
     int id = InputUtil.readInt("Enter doctor id: ");
     doctorDAOImpl.deactivateDoctor(id);
+
+  }
+
+  public void getDoctorReport() {
 
   }
 

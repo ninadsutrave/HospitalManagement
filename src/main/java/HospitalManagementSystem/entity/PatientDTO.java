@@ -3,6 +3,7 @@ package main.java.HospitalManagementSystem.entity;
 import lombok.Builder;
 import lombok.Data;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Builder
@@ -10,8 +11,8 @@ import java.sql.Timestamp;
 public class PatientDTO {
   private Integer id;
   private String name;
-  private Integer age;
-  private String gender;
+  private Date dateOfBirth;
+  private Gender gender;
   private String phoneNumber;
   private Integer isActive;
   private Timestamp createdAt;
@@ -20,7 +21,7 @@ public class PatientDTO {
   public void print() {
     System.out.println("  ID           : " + id);
     System.out.println("  Name         : " + name);
-    System.out.println("  Age          : " + age);
+    System.out.println("  DOB          : " + dateOfBirth);
     System.out.println("  Gender       : " + gender);
     System.out.println("  Phone        : " + phoneNumber);
     System.out.println("  IsActive     : " + isActive);

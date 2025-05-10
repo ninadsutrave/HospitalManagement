@@ -109,15 +109,20 @@ public class DoctorDAOImpl implements DoctorDAO {
 
     try (Connection connection = connectionManager.getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(GET_DOCTOR_SHIFT)) {
+         preparedStatement.setInt(1, id);
 
-      ResultSet resultSet = preparedStatement.executeQuery();
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet == null || resultSet.isClosed() || !resultSet.next()) {
+          return Optional.empty();
+        }
 
-      TimeRange doctorShift = TimeRange.builder()
-        .startTime(resultSet.getTime("shift_start"))
-        .endTime(resultSet.getTime("shift_end"))
-        .build();
+        TimeRange doctorShift = TimeRange.builder()
+          .startTime(resultSet.getTime("shift_start_time"))
+          .endTime(resultSet.getTime("shift_end_time"))
+          .build();
 
-      return Optional.of(doctorShift);
+        return Optional.of(doctorShift);
+      }
 
     } catch(SQLException e) {
       System.err.println("SQLException occurred while getting Doctor shift info for Doctor id: " + id);

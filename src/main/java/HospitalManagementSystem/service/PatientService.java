@@ -1,9 +1,12 @@
 package main.java.HospitalManagementSystem.service;
 
 import main.java.HospitalManagementSystem.dao.interfaces.PatientDAO;
+import main.java.HospitalManagementSystem.entity.Gender;
 import main.java.HospitalManagementSystem.entity.PatientDTO;
 import main.java.HospitalManagementSystem.dao.implementation.PatientDAOImpl;
 import main.java.HospitalManagementSystem.util.InputUtil;
+
+import java.sql.Date;
 
 public class PatientService {
 
@@ -17,19 +20,18 @@ public class PatientService {
 
     System.out.println("ADD NEW PATIENT");
 
-    String name = InputUtil.readLine("Enter name of patient: ");
-    int age = InputUtil.readInt("Enter age of patient: ");
-    String gender = InputUtil.readLine("Enter gender of patient: ");
+    String name = InputUtil.readLine("Enter name: ");
+    Date dateOfBirth = InputUtil.readDate("Enter DOB (YYYY-MM-DD): ");
+    Gender gender = InputUtil.readEnum("Enter gender (Male/Female/Other): ", Gender.class);
     String phoneNumber = InputUtil.readLine("Enter phone number: ");
 
     PatientDTO patient = PatientDTO.builder()
       .name(name)
-      .age(age)
+      .dateOfBirth(dateOfBirth)
       .gender(gender)
       .phoneNumber(phoneNumber)
       .build();
 
-    // print patient id
     patientDAOImpl.insertPatient(patient);
 
   }
@@ -70,19 +72,18 @@ public class PatientService {
     patient.print();
 
     System.out.println("Enter updated details: ");
-    String name = InputUtil.readLine("Enter name of patient: ");
-    int age = InputUtil.readInt("Enter age of patient: ");
-    String gender = InputUtil.readLine("Enter gender of patient: ");
+    String name = InputUtil.readLine("Enter name: ");
+    Date dateOfBirth = InputUtil.readDate("Enter DOB (YYYY-MM-DD): ");
+    Gender gender = InputUtil.readEnum("Enter gender (Male/Female/Other): ", Gender.class);
     String phoneNumber = InputUtil.readLine("Enter phone number: ");
-    int isActive = InputUtil.readInt("Enter isActive: ");
 
     PatientDTO updatedPatient = PatientDTO.builder()
       .id(patient.getId())
       .name(name)
-      .age(age)
+      .dateOfBirth(dateOfBirth)
       .gender(gender)
       .phoneNumber(phoneNumber)
-      .isActive(isActive)
+      .isActive(patient.getIsActive())
       .build();
 
     patientDAOImpl.updatePatient(updatedPatient);

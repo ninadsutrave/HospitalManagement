@@ -20,6 +20,7 @@ public class AppointmentService {
   AppointmentDAO appointmentDAOImpl;
 
   public AppointmentService() {
+    doctorDAOImpl = new DoctorDAOImpl();
     appointmentDAOImpl = new AppointmentDAOImpl();
   }
 
@@ -27,7 +28,7 @@ public class AppointmentService {
 
     int patientId = InputUtil.readInt("Enter patient id: ");
     int doctorId = InputUtil.readInt("Enter doctorId: ");
-    Date appointmentDate = InputUtil.readDate("Enter date: ");
+    Date appointmentDate = InputUtil.readDate("Enter date (YYYY-MM-DD): ");
 
     AppointmentDTO appointment = createValidatedAppointment(doctorId, patientId, appointmentDate)
       .orElse(null);
@@ -94,127 +95,98 @@ public class AppointmentService {
 
   }
 
+  private boolean canPatientEditAppointment(int patientId, AppointmentDTO appointment) {
+    return (patientId == appointment.getPatientId());
+  }
+
   private Optional<AppointmentDTO> createValidatedAppointment(int doctorId, int patientId, Date appointmentDate) {
-    TimeRange doctorShift = doctorDAOImpl
-      .getDoctorShift(doctorId)
-      .orElse(null);
+    TimeRange doctorShift = fetchDoctorShift(doctorId);
+    if (doctorShift == null) return Optional.empty();
 
-    if(doctorShift == null) {
-      System.err.println("Error fetching doctor shift timings");
-      return Optional.empty();
-    }
-
-    List<TimeRange> patientAppointments = appointmentDAOImpl
-      .getPatientAppointmentsForDate(patientId, appointmentDate)
-      .orElse(List.of());
-
-    List<TimeRange> doctorAppointments = appointmentDAOImpl
-      .getDoctorAppointmentsForDate(doctorId, appointmentDate)
-      .orElse(List.of());
-
-    List<TimeRange> availableSlots = findNonOverlappingSlots(doctorShift, doctorAppointments, patientAppointments);
-
+    List<TimeRange> availableSlots = getAvailableSlots(doctorId, patientId, appointmentDate, doctorShift);
     if (availableSlots.isEmpty()) {
       System.err.println("No available slots for this date! Please try again for another date!");
       return Optional.empty();
     }
 
-    Time startTime = InputUtil.readTime("Start Time: ");
-    Time endTime = InputUtil.readTime("End Time: ");
+    TimeRange selectedSlot = selectSlotFromAvailable(availableSlots);
+    if (selectedSlot == null) return Optional.empty();
 
-    TimeRange selectedSlot = TimeRange.builder()
-      .startTime(startTime)
-      .endTime(endTime)
-      .build();
+    return Optional.of(buildAppointment(doctorId, patientId, appointmentDate, selectedSlot));
+  }
 
-    boolean isValid = availableSlots.stream().anyMatch(
-      slot -> !selectedSlot.getStartTime().before(slot.getStartTime()) &&
-        !selectedSlot.getEndTime().after(slot.getEndTime())
-    );
+  private TimeRange fetchDoctorShift(int doctorId) {
+    return doctorDAOImpl.getDoctorShift(doctorId)
+      .orElseGet(() -> {
+        System.err.println("Error fetching doctor shift timings");
+        return null;
+      });
+  }
 
-    if (!isValid) {
-      System.err.println("Selected time does not fall in any available slot.");
-      return Optional.empty();
+  private List<TimeRange> getAvailableSlots(int doctorId, int patientId, Date date, TimeRange doctorShift) {
+    List<TimeRange> patientAppointments = appointmentDAOImpl
+      .getPatientAppointmentsForDate(patientId, date)
+      .orElse(List.of());
+
+    List<TimeRange> doctorAppointments = appointmentDAOImpl
+      .getDoctorAppointmentsForDate(doctorId, date)
+      .orElse(List.of());
+
+    return findNonOverlappingSlots(doctorShift, doctorAppointments, patientAppointments);
+  }
+
+  private TimeRange selectSlotFromAvailable(List<TimeRange> availableSlots) {
+    System.out.println("Available slots:");
+    for (int i = 0; i < availableSlots.size(); i++) {
+      TimeRange slot = availableSlots.get(i);
+      System.out.printf("%d. %s - %s%n", i + 1, slot.getStartTime(), slot.getEndTime());
     }
 
-    AppointmentDTO appointment = AppointmentDTO.builder()
-      .patientId(patientId)
+    int choice = InputUtil.readInt("Choose a slot by number: ");
+    if (choice < 1 || choice > availableSlots.size()) {
+      System.err.println("Invalid choice.");
+      return null;
+    }
+
+    return availableSlots.get(choice - 1);
+  }
+
+  private AppointmentDTO buildAppointment(int doctorId, int patientId, Date date, TimeRange slot) {
+    return AppointmentDTO.builder()
       .doctorId(doctorId)
-      .date(appointmentDate)
-      .startTime(startTime)
-      .endTime(endTime)
+      .patientId(patientId)
+      .date(date)
+      .startTime(slot.getStartTime())
+      .endTime(slot.getEndTime())
       .build();
-
-    return Optional.of(appointment);
   }
 
-  private boolean canPatientEditAppointment(int patientId, AppointmentDTO appointment) {
-    return (patientId == appointment.getPatientId());
-  }
 
-  private List<TimeRange> findNonOverlappingSlots(TimeRange doctorShift, List<TimeRange> doctorAppointments, List<TimeRange> patientAppointments) {
+  public List<TimeRange> findNonOverlappingSlots(TimeRange shift, List<TimeRange> doctorAppointments, List<TimeRange> patientAppointments) {
+    List<TimeRange> busySlots = new ArrayList<>();
+    busySlots.addAll(doctorAppointments);
+    busySlots.addAll(patientAppointments);
+
+    busySlots.sort(Comparator.comparing(TimeRange::getStartTime));
+
     List<TimeRange> availableSlots = new ArrayList<>();
+    Time currentStart = shift.getStartTime();
 
-    List<TimeRange> allAppointments = new ArrayList<>();
-    allAppointments.addAll(doctorAppointments);
-    allAppointments.addAll(patientAppointments);
-    allAppointments.sort(Comparator.comparing(TimeRange::getStartTime));
-
-    Time startTime = doctorShift.getStartTime();
-    Time endTime = doctorShift.getEndTime();
-
-    if (endTime.before(startTime)) {
-      Time eveningEnd = Time.valueOf("23:59:59");
-      TimeRange eveningShift = TimeRange.builder()
-        .startTime(startTime)
-        .endTime(eveningEnd)
-        .build();
-
-      Time morningStart = Time.valueOf("00:00:00");
-      TimeRange morningShift = TimeRange.builder()
-        .startTime(morningStart)
-        .endTime(endTime)
-        .build();
-
-      availableSlots.addAll(getAvailableSlotsInShift(eveningShift, allAppointments));
-      availableSlots.addAll(getAvailableSlotsInShift(morningShift, allAppointments));
-    } else {
-      availableSlots.addAll(getAvailableSlotsInShift(doctorShift, allAppointments));
-    }
-
-    return availableSlots;
-  }
-
-  private List<TimeRange> getAvailableSlotsInShift(TimeRange shift, List<TimeRange> appointments) {
-    List<TimeRange> availableSlots = new ArrayList<>();
-    Time current = shift.getStartTime();
-
-    for (TimeRange appointment : appointments) {
-      Time appointmentStart = appointment.getStartTime();
-      Time appointmentEnd = appointment.getEndTime();
-
-      if (appointmentEnd.before(shift.getStartTime()) || appointmentStart.after(shift.getEndTime())) {
-        continue;
+    for (TimeRange busy : busySlots) {
+      if (busy.getStartTime().after(currentStart)) {
+        availableSlots.add(TimeRange.builder()
+          .startTime(currentStart)
+          .endTime(busy.getStartTime())
+          .build());
       }
-
-      if (current.before(appointmentStart)) {
-        Time slotEnd = appointmentStart.before(shift.getEndTime()) ? appointmentStart : shift.getEndTime();
-        if (current.before(slotEnd)) {
-          availableSlots.add(TimeRange.builder()
-            .startTime(current)
-            .endTime(slotEnd)
-            .build());
-        }
-      }
-
-      if (appointmentEnd.after(current)) {
-        current = appointmentEnd;
+      if (busy.getEndTime().after(currentStart)) {
+        currentStart = busy.getEndTime();
       }
     }
 
-    if (current.before(shift.getEndTime())) {
+    if (currentStart.before(shift.getEndTime())) {
       availableSlots.add(TimeRange.builder()
-        .startTime(current)
+        .startTime(currentStart)
         .endTime(shift.getEndTime())
         .build());
     }
