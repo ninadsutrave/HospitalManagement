@@ -131,9 +131,4 @@ public class DoctorService {
     doctorDAOImpl.deactivateDoctor(id);
 
   }
-
-  public void getDoctorReport() {
-
-  }
-
 }

@@ -62,8 +62,7 @@ public class MenuService {
       System.out.println("6. View Doctor");
       System.out.println("7. Edit Doctor");
       System.out.println("8. Remove Doctor");
-      System.out.println("9. Get Doctor's Report");
-      System.out.println("10. Logout\n");
+      System.out.println("9. Logout\n");
 
       try {
         int choice = scanner.nextInt();
@@ -86,9 +85,7 @@ public class MenuService {
                   break;
           case 8: doctorService.removeDoctor();
                   break;
-          case 9: doctorService.getDoctorReport();
-                  break;
-          case 10: return;
+          case 9: return;
           default: System.err.println("Enter a correct choice!\n");
         }
       } catch(InputMismatchException e) {

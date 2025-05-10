@@ -8,7 +8,7 @@ BEGIN
     SELECT 1
     FROM appointment
     WHERE doctor_id = NEW.doctor_id
-      AND date = NEW.appointment_date
+      AND appointment_date = NEW.appointment_date
       AND (
         (NEW.start_time < end_time AND NEW.start_time >= start_time) OR
         (NEW.end_time > start_time AND NEW.end_time <= end_time) OR

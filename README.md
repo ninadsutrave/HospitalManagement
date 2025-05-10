@@ -20,7 +20,6 @@ Patient view
 Admin view
 - Add, view, edit or delete doctor information to the database
 - Add, view, edit or delete patient information to the database
-- Get doctor's daily report
 
 ## 📝 ER Diagram
 
@@ -28,7 +27,16 @@ Admin view
 
 ## 👁 Previews
 
-add service exceptions
+<table>
+  <tr>
+    <td><img src="./assets/ViewPatient.png" alt="View Patient" width="280"/></td>
+    <td><img src="./assets/ViewDoctors.png" alt="View Doctors" width="400"/></td>
+  </tr>
+  <tr>
+    <td><img src="./assets/RegisterPatient.png" alt="Register Patient" width="300"/></td>
+    <td><img src="./assets/BookAppointment.png" alt="Book Appointment" width="300"/></td>
+  </tr>
+</table>
 
 ## ➕ Possible additions
 
