@@ -18,6 +18,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import static main.java.HospitalManagementSystem.constants.Constants.APPOINTMENT_DURATION_IN_MINUTES;
+import static main.java.HospitalManagementSystem.constants.Constants.MILLISECONDS_PER_MINUTE;
+
 public class AppointmentService {
 
   PatientDAO patientDAOImpl;
@@ -165,7 +168,7 @@ public class AppointmentService {
       Time startTime = fullSlot.getStartTime();
       Time endTime = fullSlot.getEndTime();
 
-      List<TimeRange> timeRanges = generateTimeSlots(startTime, endTime, 30);
+      List<TimeRange> timeRanges = generateTimeSlots(startTime, endTime, APPOINTMENT_DURATION_IN_MINUTES);
       allAvailableSlots.addAll(timeRanges);
     }
 
@@ -186,7 +189,7 @@ public class AppointmentService {
 
   private List<TimeRange> generateTimeSlots(Time startTime, Time endTime, int intervalMinutes) {
     List<TimeRange> timeSlots = new ArrayList<>();
-    long intervalInMillis = intervalMinutes * 60 * 1000;
+    long intervalInMillis = intervalMinutes * MILLISECONDS_PER_MINUTE;
     long startTimeInMillis = startTime.getTime();
     long endTimeInMillis = endTime.getTime();
 
