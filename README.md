@@ -27,14 +27,14 @@ Admin view
 
 ## 👁 Previews
 
-<table>
+<table style="border-collapse: collapse; border: none;">
   <tr>
-    <td><img src="./assets/ViewPatient.png" alt="View Patient" width="280"/></td>
-    <td><img src="./assets/ViewDoctors.png" alt="View Doctors" width="400"/></td>
+    <td style="border: none; background: none;"><img src="./assets/ViewPatient.png" alt="View Patient" width="280"/></td>
+    <td style="border: none; background: none;"><img src="./assets/ViewDoctors.png" alt="View Doctors" width="400"/></td>
   </tr>
   <tr>
-    <td><img src="./assets/RegisterPatient.png" alt="Register Patient" width="300"/></td>
-    <td><img src="./assets/BookAppointment.png" alt="Book Appointment" width="300"/></td>
+    <td style="border: none; background: none;"><img src="./assets/RegisterPatient.png" alt="Register Patient" width="300"/></td>
+    <td style="border: none; background: none;"><img src="./assets/BookAppointment.png" alt="Book Appointment" width="300"/></td>
   </tr>
 </table>
 
