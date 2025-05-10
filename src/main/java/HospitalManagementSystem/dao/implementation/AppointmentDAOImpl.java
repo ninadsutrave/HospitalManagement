@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Date;
+import java.sql.Statement;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     try(Connection connection = connectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(VIEW_APPOINTMENT)) {
 
+      preparedStatement.setInt(1, id);
+
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         return mapToAppointment(resultSet);
       }
@@ -50,16 +53,26 @@ public class AppointmentDAOImpl implements AppointmentDAO {
   public boolean insertAppointment(AppointmentDTO appointment) {
 
     try(Connection connection = connectionManager.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_APPOINTMENT)) {
+      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_APPOINTMENT, Statement.RETURN_GENERATED_KEYS)) {
 
       preparedStatement.setInt(1, appointment.getPatientId());
       preparedStatement.setInt(2, appointment.getDoctorId());
       preparedStatement.setDate(3, appointment.getDate());
+      preparedStatement.setTime(4, appointment.getStartTime());
+      preparedStatement.setTime(5, appointment.getEndTime());
 
       int updatedRows = preparedStatement.executeUpdate();
 
       if(updatedRows > 0) {
-        System.out.println("Appointment created successfully!");
+        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            int generatedId = generatedKeys.getInt(1);
+            System.out.println("Appointment created successfully with ID: " + generatedId);
+          } else {
+            System.err.println("Insertion succeeded but no ID returned.");
+            return false;
+          }
+        }
         return true;
       } else {
         System.err.println("Appointment creation failed for doctorId: " + appointment.getDoctorId() + ", patientId: " + appointment.getPatientId() + ", appointmentDate: " + appointment.getDate());
@@ -125,10 +138,12 @@ public class AppointmentDAOImpl implements AppointmentDAO {
       preparedStatement.setDate(1, appointment.getDate());
       preparedStatement.setTime(2, appointment.getStartTime());
       preparedStatement.setTime(3, appointment.getEndTime());
+      preparedStatement.setInt(4, appointment.getId());
 
       int rowsUpdated = preparedStatement.executeUpdate();
 
       if(rowsUpdated > 0) {
+        System.out.println("Appointment rescheduled to your preferred slot!");
         return true;
       } else {
         System.err.println("Updating appointment query failed for Appointment id: " + appointment.getId());

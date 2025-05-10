@@ -22,7 +22,7 @@ public class PatientService {
 
     String name = InputUtil.readLine("Enter name: ");
     Date dateOfBirth = InputUtil.readDate("Enter DOB (YYYY-MM-DD): ");
-    Gender gender = InputUtil.readEnum("Enter gender (Male/Female/Other): ", Gender.class);
+    Gender gender = InputUtil.readEnum("Enter gender (MALE/FEMALE/OTHER): ", Gender.class);
     String phoneNumber = InputUtil.readLine("Enter phone number: ");
 
     PatientDTO patient = PatientDTO.builder()
@@ -74,7 +74,7 @@ public class PatientService {
     System.out.println("Enter updated details: ");
     String name = InputUtil.readLine("Enter name: ");
     Date dateOfBirth = InputUtil.readDate("Enter DOB (YYYY-MM-DD): ");
-    Gender gender = InputUtil.readEnum("Enter gender (Male/Female/Other): ", Gender.class);
+    Gender gender = InputUtil.readEnum("Enter gender (MALE/FEMALE/OTHER): ", Gender.class);
     String phoneNumber = InputUtil.readLine("Enter phone number: ");
 
     PatientDTO updatedPatient = PatientDTO.builder()

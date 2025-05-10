@@ -14,11 +14,16 @@ public class AppointmentMapper {
   public static Optional<AppointmentDTO> mapToAppointment(ResultSet resultSet) {
 
     try {
+
+      if (resultSet == null || resultSet.isClosed() || !resultSet.next()) {
+        return Optional.empty();
+      }
+
       AppointmentDTO appointment = AppointmentDTO.builder()
         .id(resultSet.getInt("id"))
         .patientId(resultSet.getInt("patient_id"))
         .doctorId(resultSet.getInt("doctor_id"))
-        .date(resultSet.getDate("date"))
+        .date(resultSet.getDate("appointment_date"))
         .startTime(resultSet.getTime("start_time"))
         .endTime(resultSet.getTime("end_time"))
         .notes(resultSet.getString("notes"))

@@ -124,7 +124,8 @@ public class MenuService {
                   break;
           case 3: appointmentService.bookAppointment();
                   break;
-          case 4: break;
+          case 4: appointmentService.rescheduleAppointment();
+                  break;
           case 5: appointmentService.cancelAppointment();
                   break;
           case 6: return;

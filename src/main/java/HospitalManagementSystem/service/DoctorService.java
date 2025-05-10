@@ -51,8 +51,8 @@ public class DoctorService {
     String name = InputUtil.readLine("Enter name: ");
     int specialisationId = InputUtil.readInt("Enter specialisation id: ");
     int yearsOfExperience = InputUtil.readInt("Enter years of experience: ");
-    Time shiftStart = InputUtil.readTime("Enter shift start time: ");
-    Time shiftEnd = InputUtil.readTime("Enter shift end time: ");
+    Time shiftStart = InputUtil.readTime("Enter shift start time (HH:SS): ");
+    Time shiftEnd = InputUtil.readTime("Enter shift end time (HH:SS): ");
 
     DoctorDTO doctor = DoctorDTO.builder()
       .name(name)
@@ -106,8 +106,8 @@ public class DoctorService {
     String name = InputUtil.readLine("Enter name of doctor: ");
     int specialisationId = InputUtil.readInt("Enter specialisation id: ");
     int yearsOfExperience = InputUtil.readInt("Enter years of experience: ");
-    Time shiftStart = InputUtil.readTime("Enter shift start time: ");
-    Time shiftEnd = InputUtil.readTime("Enter shift end time: ");
+    Time shiftStart = InputUtil.readTime("Enter shift start time (HH:SS): ");
+    Time shiftEnd = InputUtil.readTime("Enter shift end time (HH:SS): ");
 
     DoctorDTO updatedDoctor = DoctorDTO.builder()
       .id(doctor.getId())
