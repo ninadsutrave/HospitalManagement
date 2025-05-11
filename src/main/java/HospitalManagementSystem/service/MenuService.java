@@ -1,7 +1,6 @@
 package main.java.HospitalManagementSystem.service;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import main.java.HospitalManagementSystem.util.InputUtil;
 
 public class MenuService {
 
@@ -9,7 +8,6 @@ public class MenuService {
   DoctorService doctorService;
   SpecialisationService specialisationService;
   AppointmentService appointmentService;
-  private static final Scanner scanner = new Scanner(System.in);
 
   public MenuService() {
     patientService = new PatientService();
@@ -28,21 +26,15 @@ public class MenuService {
       System.out.println("2. Patient");
       System.out.println("3. Exit\n");
 
-      try {
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+      int choice = InputUtil.readInt("Enter your choice!");
 
-        switch (choice) {
-          case 1: showAdminMenu();
-                  break;
-          case 2: showPatientMenu();
-                  break;
-          case 3: return;
-          default: System.err.println("Enter a correct choice!\n");
-        }
-      } catch(InputMismatchException e) {
-        System.err.println("Invalid input!");
-        e.printStackTrace();
+      switch (choice) {
+        case 1: showAdminMenu();
+                break;
+        case 2: showPatientMenu();
+                break;
+        case 3: return;
+        default: System.err.println("Enter a valid choice!\n");
       }
 
     }
@@ -64,33 +56,27 @@ public class MenuService {
       System.out.println("8. Remove Doctor");
       System.out.println("9. Logout\n");
 
-      try {
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+      int choice = InputUtil.readInt("Enter your choice!");
 
-        switch (choice) {
-          case 1: patientService.registerPatient();
-                  break;
-          case 2: patientService.viewPatient();
-                  break;
-          case 3: patientService.editPatient();
-                  break;
-          case 4: patientService.removePatient();
-                  break;
-          case 5: doctorService.addDoctor();
-                  break;
-          case 6: doctorService.viewDoctorById();
-                  break;
-          case 7: doctorService.editDoctor();
-                  break;
-          case 8: doctorService.removeDoctor();
-                  break;
-          case 9: return;
-          default: System.err.println("Enter a correct choice!\n");
-        }
-      } catch(InputMismatchException e) {
-        System.err.println("Invalid input!");
-        e.printStackTrace();
+      switch (choice) {
+        case 1: patientService.registerPatient();
+                break;
+        case 2: patientService.viewPatient();
+                break;
+        case 3: patientService.editPatient();
+                break;
+        case 4: patientService.removePatient();
+                break;
+        case 5: doctorService.addDoctor();
+                break;
+        case 6: doctorService.viewDoctorById();
+                break;
+        case 7: doctorService.editDoctor();
+                break;
+        case 8: doctorService.removeDoctor();
+                break;
+        case 9: return;
+        default: System.err.println("Enter a valid choice!\n");
       }
 
     }
@@ -109,28 +95,22 @@ public class MenuService {
       System.out.println("5. Cancel Appointment");
       System.out.println("6. Logout\n");
 
-      try {
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+      int choice = InputUtil.readInt("Enter your choice!");
 
-        switch (choice) {
-          case 1: patientService.registerPatient();
-                  break;
-          case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
-                  doctorService.viewDoctors(specialisationId);
-                  break;
-          case 3: appointmentService.bookAppointment();
-                  break;
-          case 4: appointmentService.rescheduleAppointment();
-                  break;
-          case 5: appointmentService.cancelAppointment();
-                  break;
-          case 6: return;
-          default: System.err.println("Enter a correct choice!\n");
-        }
-      } catch(InputMismatchException e) {
-        System.err.println("Invalid input!");
-        e.printStackTrace();
+      switch (choice) {
+        case 1: patientService.registerPatient();
+                break;
+        case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
+                doctorService.viewDoctors(specialisationId);
+                break;
+        case 3: appointmentService.bookAppointment();
+                break;
+        case 4: appointmentService.rescheduleAppointment();
+                break;
+        case 5: appointmentService.cancelAppointment();
+                break;
+        case 6: return;
+        default: System.err.println("Enter a valid choice!\n");
       }
 
     }
