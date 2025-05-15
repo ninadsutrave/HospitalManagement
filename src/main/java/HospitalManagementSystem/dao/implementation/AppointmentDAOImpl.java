@@ -44,9 +44,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch(SQLException e) {
       System.err.println("SQLException occurred while getting appointment details for Appointment id: " + id);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -82,9 +81,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while creating Appointment info for doctorId: " + appointment.getDoctorId() + ", patientId: " + appointment.getPatientId() + ", appointmentDate: " + appointment.getDate());
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -103,9 +101,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting appointments for Patient id: " + patientId + " Appointment Date: " + appointmentDate);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -124,9 +121,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting appointments for Doctor id: " + doctorId + " Appointment Date: " + appointmentDate);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -153,9 +149,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred while updating Appointment id " + appointment.getId());
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -178,9 +173,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while deleting Appointment id: " + id);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 

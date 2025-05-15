@@ -32,9 +32,8 @@ public class SpecialisationDAOImpl implements SpecialisationDAO {
     } catch(SQLException e) {
       System.err.println("SQLException occurred occurred while getting specialisation list");
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 

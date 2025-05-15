@@ -54,9 +54,8 @@ public class PatientDAOImpl implements PatientDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while inserting Patient info for name: " + patient);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -74,9 +73,8 @@ public class PatientDAOImpl implements PatientDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting Patient info for id: " + id);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -105,9 +103,8 @@ public class PatientDAOImpl implements PatientDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while inserting Patient info for " + updatedPatient);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -130,9 +127,8 @@ public class PatientDAOImpl implements PatientDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while deactivating Patient id: " + id);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 

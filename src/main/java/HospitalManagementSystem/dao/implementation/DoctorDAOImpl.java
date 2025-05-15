@@ -55,9 +55,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch (SQLException e) {
       System.err.println("An error occurred while inserting Doctor: " + doctor);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -75,9 +74,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting Doctor info for id: " + id);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -99,9 +97,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred occurred while getting Doctor info for specialisationId: " + specialisationId);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
@@ -127,9 +124,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch(SQLException e) {
       System.err.println("SQLException occurred while getting Doctor shift info for Doctor id: " + id);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
   }
 
   public boolean updateDoctor(DoctorDTO updatedDoctor) {
@@ -158,9 +154,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred while inserting Doctor info for " + updatedDoctor);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
@@ -183,9 +178,8 @@ public class DoctorDAOImpl implements DoctorDAO {
     } catch (SQLException e) {
       System.err.println("SQLException occurred while deactivating Doctor id: " + id);
       e.printStackTrace();
+      return false;
     }
-
-    return false;
 
   }
 
