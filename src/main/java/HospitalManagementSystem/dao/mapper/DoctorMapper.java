@@ -17,21 +17,7 @@ public class DoctorMapper {
       if (resultSet == null || resultSet.isClosed() || !resultSet.next()) {
         return Optional.empty();
       }
-
-      DoctorDTO doctor = DoctorDTO.builder()
-        .id(resultSet.getInt("id"))
-        .name(resultSet.getString("name"))
-        .specialisationId(resultSet.getInt("specialisation_id"))
-        .specialisation(resultSet.getString("specialisation"))
-        .yearsOfExperience(resultSet.getInt("years_of_experience"))
-        .shiftStart(resultSet.getTime("shift_start_time"))
-        .shiftEnd(resultSet.getTime("shift_end_time"))
-        .isActive(resultSet.getInt("is_active"))
-        .createdAt(resultSet.getTimestamp("created_at"))
-        .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
-        .build();
-
-      return Optional.of(doctor);
+      return Optional.of(createDoctorDTO(resultSet));
 
     } catch(SQLException e) {
       System.err.println("SQLException occurred while mapping Doctor DTO for query result: " + resultSet);
@@ -52,18 +38,7 @@ public class DoctorMapper {
       }
 
       while(resultSet.next()) {
-        doctorList.add(DoctorDTO.builder()
-          .id(resultSet.getInt("id"))
-          .name(resultSet.getString("name"))
-          .specialisationId(resultSet.getInt("specialisation_id"))
-          .specialisation(resultSet.getString("specialisation"))
-          .yearsOfExperience(resultSet.getInt("years_of_experience"))
-          .shiftStart(resultSet.getTime("shift_start_time"))
-          .shiftEnd(resultSet.getTime("shift_end_time"))
-          .isActive(resultSet.getInt("is_active"))
-          .createdAt(resultSet.getTimestamp("created_at"))
-          .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
-          .build());
+        doctorList.add(createDoctorDTO(resultSet));
       }
 
     } catch(SQLException e) {
@@ -73,6 +48,21 @@ public class DoctorMapper {
 
     return doctorList.isEmpty() ? Optional.empty() : Optional.of(doctorList);
 
+  }
+
+  private static DoctorDTO createDoctorDTO(ResultSet resultSet) throws SQLException {
+    return DoctorDTO.builder()
+      .id(resultSet.getInt("id"))
+      .name(resultSet.getString("name"))
+      .specialisationId(resultSet.getInt("specialisation_id"))
+      .specialisation(resultSet.getString("specialisation"))
+      .yearsOfExperience(resultSet.getInt("years_of_experience"))
+      .shiftStart(resultSet.getTime("shift_start_time"))
+      .shiftEnd(resultSet.getTime("shift_end_time"))
+      .isActive(resultSet.getInt("is_active"))
+      .createdAt(resultSet.getTimestamp("created_at"))
+      .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
+      .build();
   }
 
 }

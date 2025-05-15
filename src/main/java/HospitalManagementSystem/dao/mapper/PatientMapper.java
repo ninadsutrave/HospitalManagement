@@ -23,18 +23,7 @@ public class PatientMapper {
         .map(g -> Gender.valueOf(g.toUpperCase()))
         .orElse(null);
 
-      PatientDTO patient = PatientDTO.builder()
-        .id(resultSet.getInt("id"))
-        .name(resultSet.getString("name"))
-        .dateOfBirth(resultSet.getDate("date_of_birth"))
-        .gender(gender)
-        .phoneNumber(resultSet.getString("phone_number"))
-        .isActive(resultSet.getInt("is_active"))
-        .createdAt(resultSet.getTimestamp("created_at"))
-        .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
-        .build();
-
-      return Optional.of(patient);
+      return Optional.of(createPatientDTO(resultSet, gender));
 
     } catch(SQLException e) {
       System.err.println("SQLException occurred while mapping Patient DTO for query result: " + resultSet);
@@ -54,21 +43,12 @@ public class PatientMapper {
         return Optional.empty();
       }
 
-      Gender gender = Optional.ofNullable(resultSet.getString("gender"))
-        .map(g -> Gender.valueOf(g.toUpperCase()))
-        .orElse(null);
-
       while(resultSet.next()) {
-        patientList.add(PatientDTO.builder()
-          .id(resultSet.getInt("id"))
-          .name(resultSet.getString("name"))
-          .dateOfBirth(resultSet.getDate("date_of_birth"))
-          .gender(gender)
-          .phoneNumber(resultSet.getString("phone_number"))
-          .isActive(resultSet.getInt("is_active"))
-          .createdAt(resultSet.getTimestamp("created_at"))
-          .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
-          .build());
+        Gender gender = Optional.ofNullable(resultSet.getString("gender"))
+          .map(g -> Gender.valueOf(g.toUpperCase()))
+          .orElse(null);
+
+        patientList.add(createPatientDTO(resultSet, gender));
       }
 
       return Optional.of(patientList);
@@ -80,6 +60,19 @@ public class PatientMapper {
 
     return patientList.isEmpty() ? Optional.empty() : Optional.of(patientList);
 
+  }
+
+  private static PatientDTO createPatientDTO(ResultSet resultSet, Gender gender) throws SQLException {
+    return PatientDTO.builder()
+      .id(resultSet.getInt("id"))
+      .name(resultSet.getString("name"))
+      .dateOfBirth(resultSet.getDate("date_of_birth"))
+      .gender(gender)
+      .phoneNumber(resultSet.getString("phone_number"))
+      .isActive(resultSet.getInt("is_active"))
+      .createdAt(resultSet.getTimestamp("created_at"))
+      .recUpdatedAt(resultSet.getTimestamp("rec_updated_at"))
+      .build();
   }
 
 }
