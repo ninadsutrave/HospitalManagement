@@ -33,9 +33,9 @@ public class AppointmentMapper {
 
     } catch (SQLException e) {
       System.err.println("SQLException occurred while mapping Appointment DTO for query result: " + resultSet);
+      e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 

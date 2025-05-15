@@ -28,9 +28,8 @@ public class PatientMapper {
     } catch(SQLException e) {
       System.err.println("SQLException occurred while mapping Patient DTO for query result: " + resultSet);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 

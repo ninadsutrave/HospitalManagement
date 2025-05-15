@@ -22,9 +22,8 @@ public class DoctorMapper {
     } catch(SQLException e) {
       System.err.println("SQLException occurred while mapping Doctor DTO for query result: " + resultSet);
       e.printStackTrace();
+      return Optional.empty();
     }
-
-    return Optional.empty();
 
   }
 
