@@ -1,5 +1,6 @@
 package main.java.HospitalManagementSystem.dao.mapper;
 
+import lombok.experimental.UtilityClass;
 import main.java.HospitalManagementSystem.entity.AppointmentDTO;
 import main.java.HospitalManagementSystem.entity.TimeRange;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@UtilityClass
 public class AppointmentMapper {
 
   public static Optional<AppointmentDTO> mapToAppointment(ResultSet resultSet) {

@@ -20,6 +20,7 @@ public class SpecialisationDAOImpl implements SpecialisationDAO {
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
+  @Override
   public Optional<List<SpecialisationDTO>> getSpecialisationList() {
 
     try (Connection connection = connectionManager.getConnection();

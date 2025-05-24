@@ -1,15 +1,19 @@
-package main.java.HospitalManagementSystem.service;
+package main.java.HospitalManagementSystem.manager;
 
+import main.java.HospitalManagementSystem.service.AppointmentService;
+import main.java.HospitalManagementSystem.service.DoctorService;
+import main.java.HospitalManagementSystem.service.PatientService;
+import main.java.HospitalManagementSystem.service.SpecialisationService;
 import main.java.HospitalManagementSystem.util.InputUtil;
 
-public class MenuService {
+public class MenuManager {
 
   PatientService patientService;
   DoctorService doctorService;
   SpecialisationService specialisationService;
   AppointmentService appointmentService;
 
-  public MenuService() {
+  public MenuManager() {
     patientService = new PatientService();
     doctorService = new DoctorService();
     specialisationService = new SpecialisationService();
@@ -30,9 +34,9 @@ public class MenuService {
 
       switch (choice) {
         case 1: showAdminMenu();
-                break;
+          break;
         case 2: showPatientMenu();
-                break;
+          break;
         case 3: return;
         default: System.err.println("Enter a valid choice!\n");
       }
@@ -60,21 +64,21 @@ public class MenuService {
 
       switch (choice) {
         case 1: patientService.registerPatient();
-                break;
+          break;
         case 2: patientService.viewPatient();
-                break;
+          break;
         case 3: patientService.editPatient();
-                break;
+          break;
         case 4: patientService.removePatient();
-                break;
+          break;
         case 5: doctorService.addDoctor();
-                break;
+          break;
         case 6: doctorService.viewDoctorById();
-                break;
+          break;
         case 7: doctorService.editDoctor();
-                break;
+          break;
         case 8: doctorService.removeDoctor();
-                break;
+          break;
         case 9: return;
         default: System.err.println("Enter a valid choice!\n");
       }
@@ -99,16 +103,16 @@ public class MenuService {
 
       switch (choice) {
         case 1: patientService.registerPatient();
-                break;
+          break;
         case 2: Integer specialisationId = specialisationService.getSpecialisationChoice();
-                doctorService.viewDoctors(specialisationId);
-                break;
+          doctorService.viewDoctors(specialisationId);
+          break;
         case 3: appointmentService.bookAppointment();
-                break;
+          break;
         case 4: appointmentService.rescheduleAppointment();
-                break;
+          break;
         case 5: appointmentService.cancelAppointment();
-                break;
+          break;
         case 6: return;
         default: System.err.println("Enter a valid choice!\n");
       }

@@ -1,12 +1,12 @@
 package main.java.HospitalManagementSystem;
 
-import main.java.HospitalManagementSystem.service.MenuService;
+import main.java.HospitalManagementSystem.manager.MenuManager;
 
 public class HospitalManagementSystem {
 
   public static void main(String[] args) {
 
-    MenuService menuService = new MenuService();
+    MenuManager menuService = new MenuManager();
     menuService.showWelcomeScreen();
 
   }

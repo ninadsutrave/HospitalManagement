@@ -1,5 +1,6 @@
 package main.java.HospitalManagementSystem.dao.mapper;
 
+import lombok.experimental.UtilityClass;
 import main.java.HospitalManagementSystem.entity.DoctorDTO;
 
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@UtilityClass
 public class DoctorMapper {
 
   public static Optional<DoctorDTO> mapToDoctor(ResultSet resultSet) {

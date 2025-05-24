@@ -1,5 +1,7 @@
 package main.java.HospitalManagementSystem.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -8,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+@UtilityClass
 public class InputUtil {
   private static final Scanner scanner = new Scanner(System.in);
 

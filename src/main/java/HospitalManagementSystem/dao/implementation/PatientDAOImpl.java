@@ -23,6 +23,7 @@ public class PatientDAOImpl implements PatientDAO {
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
+  @Override
   public boolean insertPatient(PatientDTO patient) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -59,6 +60,7 @@ public class PatientDAOImpl implements PatientDAO {
 
   }
 
+  @Override
   public Optional<PatientDTO> getPatientById(int id) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -78,6 +80,7 @@ public class PatientDAOImpl implements PatientDAO {
 
   }
 
+  @Override
   public boolean updatePatient(PatientDTO updatedPatient) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -108,6 +111,7 @@ public class PatientDAOImpl implements PatientDAO {
 
   }
 
+  @Override
   public boolean deactivatePatient(int id) {
 
     try (Connection connection = connectionManager.getConnection();

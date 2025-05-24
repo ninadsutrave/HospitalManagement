@@ -30,6 +30,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
+  @Override
   public Optional<AppointmentDTO> getAppointmentById(int id) {
 
     try(Connection connection = connectionManager.getConnection();
@@ -49,6 +50,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
+  @Override
   public boolean insertAppointment(AppointmentDTO appointment) {
 
     try(Connection connection = connectionManager.getConnection();
@@ -86,6 +88,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
+  @Override
   public Optional<List<TimeRange>> getPatientAppointmentsForDate(int patientId, Date appointmentDate) {
 
     try(Connection connection = connectionManager.getConnection();
@@ -106,6 +109,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
+  @Override
   public Optional<List<TimeRange>> getDoctorAppointmentsForDate(int doctorId, Date appointmentDate) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -126,6 +130,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
+  @Override
   public boolean updateAppointment(AppointmentDTO appointment) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -154,6 +159,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
   }
 
+  @Override
   public boolean deleteAppointment(int id) {
 
     try (Connection connection = connectionManager.getConnection();

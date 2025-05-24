@@ -23,6 +23,7 @@ public class DoctorDAOImpl implements DoctorDAO {
   private static final DatabaseConfig config = new DatabaseConfig();
   private static final DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(config);
 
+  @Override
   public boolean insertDoctor(DoctorDTO doctor) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -60,6 +61,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
   }
 
+  @Override
   public Optional<DoctorDTO> getDoctorById(int id) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -79,6 +81,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
   }
 
+  @Override
   public Optional<List<DoctorDTO>> getDoctorBySpecialisation(Integer specialisationId) {
 
     if(specialisationId == null) {
@@ -102,6 +105,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
   }
 
+  @Override
   public Optional<TimeRange> getDoctorShift(int id) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -128,6 +132,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     }
   }
 
+  @Override
   public boolean updateDoctor(DoctorDTO updatedDoctor) {
 
     try (Connection connection = connectionManager.getConnection();
@@ -159,6 +164,7 @@ public class DoctorDAOImpl implements DoctorDAO {
 
   }
 
+  @Override
   public boolean deactivateDoctor(int id) {
 
     try (Connection connection = connectionManager.getConnection();
