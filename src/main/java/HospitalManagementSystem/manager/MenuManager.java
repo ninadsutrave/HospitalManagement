@@ -30,7 +30,7 @@ public class MenuManager {
       System.out.println("2. Patient");
       System.out.println("3. Exit\n");
 
-      int choice = InputUtil.readInt("Enter your choice!");
+      int choice = InputUtil.readInt("Enter your choice: ");
 
       switch (choice) {
         case 1: showAdminMenu();
@@ -60,7 +60,7 @@ public class MenuManager {
       System.out.println("8. Remove Doctor");
       System.out.println("9. Logout\n");
 
-      int choice = InputUtil.readInt("Enter your choice!");
+      int choice = InputUtil.readInt("Enter your choice: ");
 
       switch (choice) {
         case 1: patientService.registerPatient();
@@ -99,7 +99,7 @@ public class MenuManager {
       System.out.println("5. Cancel Appointment");
       System.out.println("6. Logout\n");
 
-      int choice = InputUtil.readInt("Enter your choice!");
+      int choice = InputUtil.readInt("Enter your choice: ");
 
       switch (choice) {
         case 1: patientService.registerPatient();
